@@ -18,8 +18,11 @@ import net.sf.jsqlparser.expression.OracleHierarchicalExpression;
 import net.sf.jsqlparser.expression.OracleHint;
 import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
 import net.sf.jsqlparser.schema.Table;
+import net.sf.jsqlparser.statement.common.HasLimit;
+import net.sf.jsqlparser.statement.common.HasMainTable;
+import net.sf.jsqlparser.statement.common.HasWhere;
 
-public class PlainSelect extends ASTNodeAccessImpl implements SelectBody {
+public class PlainSelect extends ASTNodeAccessImpl implements SelectBody, HasWhere,HasMainTable,HasLimit, net.sf.jsqlparser.statement.common.HasOrderBy {
 
     private Distinct distinct = null;
     private List<SelectItem> selectItems;
@@ -69,6 +72,7 @@ public class PlainSelect extends ASTNodeAccessImpl implements SelectBody {
         return selectItems;
     }
 
+    @Override
     public Expression getWhere() {
         return where;
     }
@@ -92,6 +96,7 @@ public class PlainSelect extends ASTNodeAccessImpl implements SelectBody {
         Collections.addAll(selectItems, items);
     }
 
+    @Override
     public void setWhere(Expression where) {
         this.where = where;
     }
@@ -114,10 +119,12 @@ public class PlainSelect extends ASTNodeAccessImpl implements SelectBody {
         selectVisitor.visit(this);
     }
 
+    @Override
     public List<OrderByElement> getOrderByElements() {
         return orderByElements;
     }
 
+    @Override
     public void setOrderByElements(List<OrderByElement> orderByElements) {
         this.orderByElements = orderByElements;
     }
@@ -492,5 +499,18 @@ public class PlainSelect extends ASTNodeAccessImpl implements SelectBody {
 
     public boolean getMySqlSqlNoCache() {
         return this.sqlNoCacheFlag;
+    }
+
+    @Override
+    public Table getTable() {
+        if(fromItem instanceof Table){
+            return (Table)fromItem;
+        }
+        return null;
+    }
+
+    @Override
+    public void setTable(Table name) {
+        setFromItem(name);
     }
 }

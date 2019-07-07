@@ -17,11 +17,12 @@ import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.schema.Table;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.StatementVisitor;
-import net.sf.jsqlparser.statement.select.PlainSelect;
-import net.sf.jsqlparser.statement.select.Select;
-import net.sf.jsqlparser.statement.select.SelectExpressionItem;
+import net.sf.jsqlparser.statement.common.HasLimit;
+import net.sf.jsqlparser.statement.common.HasOrderBy;
+import net.sf.jsqlparser.statement.common.HasWhere;
+import net.sf.jsqlparser.statement.select.*;
 
-public class Insert implements Statement {
+public class Insert implements Statement, net.sf.jsqlparser.statement.common.HasMainTable,HasLimit,HasOrderBy,HasWhere {
 
     private Table table;
     private List<Column> columns;
@@ -48,10 +49,12 @@ public class Insert implements Statement {
         statementVisitor.visit(this);
     }
 
+    @Override
     public Table getTable() {
         return table;
     }
 
+    @Override
     public void setTable(Table name) {
         table = name;
     }
@@ -247,5 +250,34 @@ public class Insert implements Statement {
 
         return sql.toString();
     }
-    
+
+    @Override
+    public void setLimit(Limit limit) {
+
+    }
+
+    @Override
+    public Limit getLimit() {
+        return null;
+    }
+
+    @Override
+    public List<OrderByElement> getOrderByElements() {
+        return null;
+    }
+
+    @Override
+    public void setOrderByElements(List<OrderByElement> orderByElements) {
+
+    }
+
+    @Override
+    public Expression getWhere() {
+        return null;
+    }
+
+    @Override
+    public void setWhere(Expression where) {
+
+    }
 }

@@ -9,11 +9,15 @@
  */
 package net.sf.jsqlparser.statement.update;
 
+import java.util.Collections;
 import java.util.List;
 
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.schema.Table;
+import net.sf.jsqlparser.statement.common.HasMainTable;
+import net.sf.jsqlparser.statement.common.HasOrderBy;
+import net.sf.jsqlparser.statement.common.HasWhere;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.StatementVisitor;
 import net.sf.jsqlparser.statement.select.FromItem;
@@ -24,7 +28,7 @@ import net.sf.jsqlparser.statement.select.OrderByElement;
 import net.sf.jsqlparser.statement.select.Limit;
 import net.sf.jsqlparser.statement.select.SelectExpressionItem;
 
-public class Update implements Statement {
+public class Update implements Statement ,HasWhere,HasMainTable, net.sf.jsqlparser.statement.common.HasLimit,HasOrderBy {
 
     private List<Table> tables;
     private Expression where;
@@ -121,6 +125,7 @@ public class Update implements Statement {
         this.orderByElements = orderByElements;
     }
 
+    @Override
     public void setLimit(Limit limit) {
         this.limit = limit;
     }
@@ -129,6 +134,7 @@ public class Update implements Statement {
         return orderByElements;
     }
 
+    @Override
     public Limit getLimit() {
         return limit;
     }
@@ -211,5 +217,18 @@ public class Update implements Statement {
         }
 
         return b.toString();
+    }
+
+    @Override
+    public Table getTable() {
+        if(tables!=null && tables.size()==1){
+            return tables.get(0);
+        }
+        return null;
+    }
+
+    @Override
+    public void setTable(Table name) {
+        setTables(Collections.singletonList(name));
     }
 }
