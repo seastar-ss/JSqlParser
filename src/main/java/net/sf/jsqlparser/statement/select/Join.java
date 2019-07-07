@@ -170,6 +170,7 @@ public class Join extends ASTNodeAccessImpl {
     public boolean isWindowJoin() {
         return joinWindow != null;
     }
+
     /**
      * Return the "WITHIN" join window (if any)
      */
@@ -183,37 +184,42 @@ public class Join extends ASTNodeAccessImpl {
 
     @Override
     public String toString() {
+        StringBuilder ret = new StringBuilder();
         if (isSimple() && isOuter()) {
-            return "OUTER " + rightItem;
+            ret.append("OUTER ").append(rightItem);
         } else if (isSimple()) {
-            return "" + rightItem;
+            ret.append(rightItem);
         } else {
-            String type = "";
+//            String type = "";
 
             if (isRight()) {
-                type += "RIGHT ";
+                ret.append("RIGHT ");
             } else if (isNatural()) {
-                type += "NATURAL ";
+                ret.append("NATURAL ");
             } else if (isFull()) {
-                type += "FULL ";
+                ret.append("FULL ");
             } else if (isLeft()) {
-                type += "LEFT ";
+                ret.append("LEFT ");
             } else if (isCross()) {
-                type += "CROSS ";
+                ret.append("CROSS ");
             }
 
             if (isOuter()) {
-                type += "OUTER ";
+                ret.append("OUTER ");
             } else if (isInner()) {
-                type += "INNER ";
+                ret.append("INNER ");
             } else if (isSemi()) {
-                type += "SEMI ";
+                ret.append("SEMI ");
             }
 
-            return type + "JOIN " + rightItem + ((joinWindow != null) ? " WITHIN " + joinWindow : "")
-                    + ((onExpression != null) ? " ON " + onExpression + "" : "")
-                    + PlainSelect.getFormatedList(usingColumns, "USING", true, true);
+            ret
+                    .append("JOIN ")
+                    .append(rightItem)
+                    .append(((joinWindow != null) ? " WITHIN " + joinWindow : ""))
+                    .append(((onExpression != null) ? " ON " + onExpression : ""))
+                    .append(PlainSelect.getFormatedList(usingColumns, "USING", true, true))
+                    .toString();
         }
-
+        return ret.toString();
     }
 }

@@ -53,18 +53,18 @@ public class Limit extends ASTNodeAccessImpl {
 
     @Override
     public String toString() {
-        String retVal = " LIMIT ";
+        StringBuilder retVal = new StringBuilder(" LIMIT ");
         if (limitNull) {
-            retVal += "NULL";
+            retVal .append( "NULL");
         } else {
             if (null != offset) {
-                retVal += offset + ", ";
+                retVal .append( offset ).append( ", ");
             }
             if (null != rowCount) {
-                retVal += rowCount;
+                retVal .append( rowCount);
             }
         }
 
-        return retVal;
+        return retVal.toString();
     }
 }
