@@ -13,17 +13,22 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+
+import net.sf.jsqlparser.expression.Alias;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.OracleHierarchicalExpression;
 import net.sf.jsqlparser.expression.OracleHint;
 import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
+import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.schema.Table;
+import net.sf.jsqlparser.statement.common.HasColumnExpression;
 import net.sf.jsqlparser.statement.common.HasLimit;
 import net.sf.jsqlparser.statement.common.HasMainTable;
 import net.sf.jsqlparser.statement.common.HasWhere;
 import net.sf.jsqlparser.util.SelectUtils;
 
-public class PlainSelect extends ASTNodeAccessImpl implements SelectBody, HasWhere,HasMainTable,HasLimit, net.sf.jsqlparser.statement.common.HasOrderBy {
+public class PlainSelect extends ASTNodeAccessImpl implements SelectBody, HasWhere,HasMainTable,HasLimit,
+        net.sf.jsqlparser.statement.common.HasOrderBy,HasColumnExpression {
 
     private Distinct distinct = null;
     private List<SelectItem> selectItems;
@@ -477,5 +482,18 @@ public class PlainSelect extends ASTNodeAccessImpl implements SelectBody, HasWhe
     @Override
     public void setTable(Table name) {
         setFromItem(name);
+    }
+
+    @Override
+    public boolean addColExpression(Table table, String column, String alias) {
+        selectItems.add(new SelectExpressionItem().setAlias(new Alias(alias)).setExpression(new Column(table,column)));
+        return true;
+    }
+
+    @Override
+    public int removeAllColExpression() {
+        int size=selectItems.size();
+        selectItems.clear();
+        return size;
     }
 }

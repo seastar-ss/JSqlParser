@@ -12,18 +12,21 @@ package net.sf.jsqlparser.statement.insert;
 import java.util.List;
 
 import net.sf.jsqlparser.expression.Expression;
+import net.sf.jsqlparser.expression.JdbcNamedParameter;
+import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 import net.sf.jsqlparser.expression.operators.relational.ItemsList;
 import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.schema.Table;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.StatementVisitor;
+import net.sf.jsqlparser.statement.common.HasColumnExpression;
 import net.sf.jsqlparser.statement.common.HasLimit;
 import net.sf.jsqlparser.statement.common.HasOrderBy;
 import net.sf.jsqlparser.statement.common.HasWhere;
 import net.sf.jsqlparser.statement.select.*;
 import net.sf.jsqlparser.util.SelectUtils;
 
-public class Insert implements Statement, net.sf.jsqlparser.statement.common.HasMainTable,HasLimit,HasOrderBy,HasWhere {
+public class Insert implements Statement, net.sf.jsqlparser.statement.common.HasMainTable,HasLimit,HasOrderBy,HasWhere,HasColumnExpression {
 
     private Table table;
     private List<Column> columns;
@@ -280,5 +283,40 @@ public class Insert implements Statement, net.sf.jsqlparser.statement.common.Has
     @Override
     public void setWhere(Expression where) {
 
+    }
+
+    @Override
+    public boolean addColExpression(Table table, String column, String alias) {
+        columns.add(new Column(table,column));
+        ExpressionList list;
+
+        if(itemsList==null){
+            list = new ExpressionList();
+            itemsList=list;
+        }else{
+            if(itemsList instanceof ExpressionList){
+                list=(ExpressionList) itemsList;
+            }else {
+                throw new IllegalArgumentException("this insert instance can't use this method");
+            }
+        }
+        if(list!=null){
+            list.add(new JdbcNamedParameter(alias));
+        }
+        return true;
+    }
+
+    @Override
+    public int removeAllColExpression() {
+        int size = columns.size();
+        columns.clear();
+        ExpressionList list;
+        if(itemsList instanceof ExpressionList){
+            list=(ExpressionList) itemsList;
+            list.clear();
+        }else {
+            throw new IllegalArgumentException("this insert instance can't use this method");
+        }
+        return size;
     }
 }

@@ -13,8 +13,10 @@ import java.util.Collections;
 import java.util.List;
 
 import net.sf.jsqlparser.expression.Expression;
+import net.sf.jsqlparser.expression.JdbcNamedParameter;
 import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.schema.Table;
+import net.sf.jsqlparser.statement.common.HasColumnExpression;
 import net.sf.jsqlparser.statement.common.HasMainTable;
 import net.sf.jsqlparser.statement.common.HasOrderBy;
 import net.sf.jsqlparser.statement.common.HasWhere;
@@ -29,7 +31,7 @@ import net.sf.jsqlparser.statement.select.Limit;
 import net.sf.jsqlparser.statement.select.SelectExpressionItem;
 import net.sf.jsqlparser.util.SelectUtils;
 
-public class Update implements Statement ,HasWhere,HasMainTable, net.sf.jsqlparser.statement.common.HasLimit,HasOrderBy {
+public class Update implements Statement ,HasWhere,HasMainTable, net.sf.jsqlparser.statement.common.HasLimit,HasOrderBy,HasColumnExpression {
 
     private List<Table> tables;
     private Expression where;
@@ -231,5 +233,20 @@ public class Update implements Statement ,HasWhere,HasMainTable, net.sf.jsqlpars
     @Override
     public void setTable(Table name) {
         setTables(Collections.singletonList(name));
+    }
+
+    @Override
+    public boolean addColExpression(Table table, String column, String alias) {
+        columns.add(new Column(table,column));
+        expressions.add(new JdbcNamedParameter(alias));
+        return true;
+    }
+
+    @Override
+    public int removeAllColExpression() {
+        int size = columns.size();
+        columns.clear();
+        expressions.clear();
+        return size;
     }
 }

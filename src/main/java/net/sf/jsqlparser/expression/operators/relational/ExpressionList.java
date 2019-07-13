@@ -25,6 +25,18 @@ public class ExpressionList implements ItemsList {
     public ExpressionList() {
     }
 
+    public int size() {
+        return getExpressions().size();
+    }
+
+    public boolean add(Expression expression) {
+        return getExpressions().add(expression);
+    }
+
+    public void clear() {
+        expressions.clear();
+    }
+
     public ExpressionList(List<Expression> expressions) {
         this.expressions = expressions;
     }
