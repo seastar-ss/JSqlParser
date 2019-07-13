@@ -27,6 +27,7 @@ import net.sf.jsqlparser.statement.select.Select;
 import net.sf.jsqlparser.statement.select.OrderByElement;
 import net.sf.jsqlparser.statement.select.Limit;
 import net.sf.jsqlparser.statement.select.SelectExpressionItem;
+import net.sf.jsqlparser.util.SelectUtils;
 
 public class Update implements Statement ,HasWhere,HasMainTable, net.sf.jsqlparser.statement.common.HasLimit,HasOrderBy {
 
@@ -158,7 +159,7 @@ public class Update implements Statement ,HasWhere,HasMainTable, net.sf.jsqlpars
     @Override
     public String toString() {
         StringBuilder b = new StringBuilder("UPDATE ");
-        b.append(PlainSelect.getStringList(getTables(), true, false)).append(" SET ");
+        b.append(SelectUtils.getStringList(getTables(), true, false)).append(" SET ");
 
         if (!useSelect) {
             for (int i = 0; i < getColumns().size(); i++) {
@@ -212,7 +213,7 @@ public class Update implements Statement ,HasWhere,HasMainTable, net.sf.jsqlpars
         if (isReturningAllColumns()) {
             b.append(" RETURNING *");
         } else if (getReturningExpressionList() != null) {
-            b.append(" RETURNING ").append(PlainSelect.
+            b.append(" RETURNING ").append(SelectUtils.
                     getStringList(getReturningExpressionList(), true, false));
         }
 

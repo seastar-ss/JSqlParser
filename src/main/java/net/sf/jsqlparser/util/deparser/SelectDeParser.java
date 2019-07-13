@@ -15,6 +15,7 @@ import net.sf.jsqlparser.expression.*;
 import net.sf.jsqlparser.schema.*;
 import net.sf.jsqlparser.statement.select.*;
 import net.sf.jsqlparser.statement.values.ValuesStatement;
+import net.sf.jsqlparser.util.SelectUtils;
 
 public class SelectDeParser implements SelectVisitor, SelectItemVisitor, FromItemVisitor, PivotVisitor {
 
@@ -236,10 +237,10 @@ public class SelectDeParser implements SelectVisitor, SelectItemVisitor, FromIte
         buffer.append(" PIVOT (")
                 .append(PlainSelect.getStringList(pivot.getFunctionItems()))
                 .append(" FOR ")
-                .append(PlainSelect.
+                .append(SelectUtils.
                         getStringList(forColumns, true, forColumns != null && forColumns.size() > 1)).
                 append(" IN ")
-                .append(PlainSelect.getStringList(pivot.getInItems(), true, true))
+                .append(SelectUtils.getStringList(pivot.getInItems(), true, true))
                 .append(")");
         if (pivot.getAlias() != null) {
             buffer.append(pivot.getAlias().toString());
@@ -252,7 +253,7 @@ public class SelectDeParser implements SelectVisitor, SelectItemVisitor, FromIte
         buffer.append(" PIVOT XML (")
                 .append(PlainSelect.getStringList(pivot.getFunctionItems()))
                 .append(" FOR ")
-                .append(PlainSelect.
+                .append(SelectUtils.
                         getStringList(forColumns, true, forColumns != null && forColumns.size() > 1)).
                 append(" IN (");
         if (pivot.isInAny()) {
@@ -419,7 +420,7 @@ public class SelectDeParser implements SelectVisitor, SelectItemVisitor, FromIte
         }
         buffer.append(withItem.getName());
         if (withItem.getWithItemList() != null) {
-            buffer.append(" ").append(PlainSelect.
+            buffer.append(" ").append(SelectUtils.
                     getStringList(withItem.getWithItemList(), true, true));
         }
         buffer.append(" AS (");

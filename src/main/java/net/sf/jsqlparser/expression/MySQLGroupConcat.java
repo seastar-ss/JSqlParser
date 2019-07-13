@@ -13,7 +13,7 @@ import java.util.List;
 import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
 import net.sf.jsqlparser.statement.select.OrderByElement;
-import net.sf.jsqlparser.statement.select.PlainSelect;
+import net.sf.jsqlparser.util.SelectUtils;
 
 public class MySQLGroupConcat extends ASTNodeAccessImpl implements Expression {
 
@@ -66,7 +66,7 @@ public class MySQLGroupConcat extends ASTNodeAccessImpl implements Expression {
         if (isDistinct()) {
             b.append("DISTINCT ");
         }
-        b.append(PlainSelect.getStringList(expressionList.getExpressions(), true, false));
+        b.append(SelectUtils.getStringList(expressionList.getExpressions(), true, false));
         if (orderByElements != null && !orderByElements.isEmpty()) {
             b.append(" ORDER BY ");
             for (int i = 0; i < orderByElements.size(); i++) {

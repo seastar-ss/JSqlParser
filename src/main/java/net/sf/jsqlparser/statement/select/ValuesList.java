@@ -15,6 +15,7 @@ import net.sf.jsqlparser.expression.operators.relational.MultiExpressionList;
 import java.util.Iterator;
 import java.util.List;
 import net.sf.jsqlparser.expression.Alias;
+import net.sf.jsqlparser.util.SelectUtils;
 
 public class ValuesList implements FromItem {
 
@@ -77,7 +78,7 @@ public class ValuesList implements FromItem {
         b.append("(VALUES ");
         for (Iterator<ExpressionList> it = getMultiExpressionList().getExprList().iterator(); it.
                 hasNext();) {
-            b.append(PlainSelect.getStringList(it.next().getExpressions(), true, !isNoBrackets()));
+            b.append(SelectUtils.getStringList(it.next().getExpressions(), true, !isNoBrackets()));
             if (it.hasNext()) {
                 b.append(", ");
             }

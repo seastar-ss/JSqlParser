@@ -9,15 +9,15 @@
  */
 package net.sf.jsqlparser.statement.create.table;
 
-import net.sf.jsqlparser.statement.select.PlainSelect;
+import net.sf.jsqlparser.util.SelectUtils;
 
 public class NamedConstraint extends Index {
 
     @Override
     public String toString() {
-        String idxSpecText = PlainSelect.getStringList(getIndexSpec(), false, false);
+        String idxSpecText = SelectUtils.getStringList(getIndexSpec(), false, false);
         return (getName() != null ? "CONSTRAINT " + getName() + " " : "")
-                + getType() + " " + PlainSelect.getStringList(getColumnsNames(), true, true) + (!"".
+                + getType() + " " + SelectUtils.getStringList(getColumnsNames(), true, true) + (!"".
                 equals(idxSpecText) ? " " + idxSpecText : "");
     }
 }

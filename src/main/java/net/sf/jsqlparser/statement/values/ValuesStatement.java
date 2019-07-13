@@ -13,9 +13,9 @@ import java.util.List;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.StatementVisitor;
-import net.sf.jsqlparser.statement.select.PlainSelect;
 import net.sf.jsqlparser.statement.select.SelectBody;
 import net.sf.jsqlparser.statement.select.SelectVisitor;
+import net.sf.jsqlparser.util.SelectUtils;
 
 public class ValuesStatement implements Statement, SelectBody {
     
@@ -42,7 +42,7 @@ public class ValuesStatement implements Statement, SelectBody {
     public String toString() {
         StringBuilder sql = new StringBuilder();
         sql.append("VALUES ");
-        sql.append(PlainSelect.getStringList(expressions, true, true));
+        sql.append(SelectUtils.getStringList(expressions, true, true));
         return sql.toString();
     }
     

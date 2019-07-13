@@ -13,8 +13,8 @@ import java.util.List;
 import net.sf.jsqlparser.schema.Table;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.StatementVisitor;
-import net.sf.jsqlparser.statement.select.PlainSelect;
 import net.sf.jsqlparser.statement.select.SelectBody;
+import net.sf.jsqlparser.util.SelectUtils;
 
 public class AlterView implements Statement {
 
@@ -71,7 +71,7 @@ public class AlterView implements Statement {
         sql.append("VIEW ");
         sql.append(view);
         if (columnNames != null) {
-            sql.append(PlainSelect.getStringList(columnNames, true, true));
+            sql.append(SelectUtils.getStringList(columnNames, true, true));
         }
         sql.append(" AS ").append(selectBody);
         return sql.toString();

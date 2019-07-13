@@ -13,6 +13,7 @@ import net.sf.jsqlparser.schema.Column;
 
 import java.util.List;
 import net.sf.jsqlparser.expression.Alias;
+import net.sf.jsqlparser.util.SelectUtils;
 
 public class Pivot {
 
@@ -74,9 +75,9 @@ public class Pivot {
     public String toString() {
         return "PIVOT ("
                 + PlainSelect.getStringList(functionItems)
-                + " FOR " + PlainSelect.
+                + " FOR " + SelectUtils.
                         getStringList(forColumns, true, forColumns != null && forColumns.size() > 1)
-                + " IN " + PlainSelect.getStringList(getInItems(), true, true) + ")"
+                + " IN " + SelectUtils.getStringList(getInItems(), true, true) + ")"
                 + (alias!=null?alias.toString():"");
     }
 }

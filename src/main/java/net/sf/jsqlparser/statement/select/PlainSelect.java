@@ -21,6 +21,7 @@ import net.sf.jsqlparser.schema.Table;
 import net.sf.jsqlparser.statement.common.HasLimit;
 import net.sf.jsqlparser.statement.common.HasMainTable;
 import net.sf.jsqlparser.statement.common.HasWhere;
+import net.sf.jsqlparser.util.SelectUtils;
 
 public class PlainSelect extends ASTNodeAccessImpl implements SelectBody, HasWhere,HasMainTable,HasLimit, net.sf.jsqlparser.statement.common.HasOrderBy {
 
@@ -422,7 +423,7 @@ public class PlainSelect extends ASTNodeAccessImpl implements SelectBody, HasWhe
     }
 
     public static String getFormatedList(List<?> list, String expression, boolean useComma, boolean useBrackets) {
-        String sql = getStringList(list, useComma, useBrackets);
+        String sql = SelectUtils.getStringList(list, useComma, useBrackets);
 
         if (sql.length() > 0) {
             if (expression.length() > 0) {
@@ -441,48 +442,12 @@ public class PlainSelect extends ASTNodeAccessImpl implements SelectBody, HasWhe
      *
      * The same as getStringList(list, true, false)
      *
-     * @see #getStringList(List, boolean, boolean)
+     * @see SelectUtils#getStringList(List, boolean, boolean)
      * @param list list of objects with toString methods
      * @return comma separated list of the elements in the list
      */
     public static String getStringList(List<?> list) {
-        return getStringList(list, true, false);
-    }
-
-    /**
-     * List the toString out put of the objects in the List that can be comma separated. If the List
-     * is null or empty an empty string is returned.
-     *
-     * @param list list of objects with toString methods
-     * @param useComma true if the list has to be comma separated
-     * @param useBrackets true if the list has to be enclosed in brackets
-     * @return comma separated list of the elements in the list
-     */
-    public static String getStringList(List<?> list, boolean useComma, boolean useBrackets) {
-        StringBuilder ans = new StringBuilder();
-//        String ans = "";
-        String comma = ",";
-        if (!useComma) {
-            comma = "";
-        }
-        if (list != null) {
-            if (useBrackets) {
-                ans.append("(");
-//                ans += "(";
-            }
-
-            for (int i = 0; i < list.size(); i++) {
-                ans.append(list.get(i)).append((i < list.size() - 1) ? comma + " " : "");
-//                ans += "" + list.get(i) + ((i < list.size() - 1) ? comma + " " : "");
-            }
-
-            if (useBrackets) {
-                ans.append(")");
-//                ans += ")";
-            }
-        }
-
-        return ans.toString();
+        return SelectUtils.getStringList(list, true, false);
     }
 
     public void setMySqlSqlCalcFoundRows(boolean mySqlCalcFoundRows) {

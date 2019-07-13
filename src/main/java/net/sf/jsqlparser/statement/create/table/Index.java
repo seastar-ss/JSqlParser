@@ -11,7 +11,7 @@ package net.sf.jsqlparser.statement.create.table;
 
 import java.util.List;
 
-import net.sf.jsqlparser.statement.select.PlainSelect;
+import net.sf.jsqlparser.util.SelectUtils;
 
 public class Index {
 
@@ -37,9 +37,9 @@ public class Index {
      * In postgresql, the index type (Btree, GIST, etc.) is indicated
      * with a USING clause.
      * Please note that:
-     *  Oracle - the type might be BITMAP, indicating a bitmap kind of index
-     *  MySQL - the type might be FULLTEXT or SPATIAL
-    */
+     * Oracle - the type might be BITMAP, indicating a bitmap kind of index
+     * MySQL - the type might be FULLTEXT or SPATIAL
+     */
     public void setUsing(String string) {
         using = string;
     }
@@ -70,8 +70,13 @@ public class Index {
 
     @Override
     public String toString() {
-        String idxSpecText = PlainSelect.getStringList(idxSpec, false, false);
-        return type + (name != null ? " " + name : "") + " " + PlainSelect.
-                getStringList(columnsNames, true, true) + (!"".equals(idxSpecText) ? " " + idxSpecText : "");
+        String idxSpecText = SelectUtils.getStringList(idxSpec, false, false);
+        return new StringBuilder().append(type)
+                .append(" ")
+                .append(name != null ? name : "")
+                .append(" ")
+                .append(SelectUtils.getStringList(columnsNames, true, true))
+                .append(" ")
+                .append(!"".equals(idxSpecText) ? idxSpecText : "").toString();
     }
 }

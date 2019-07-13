@@ -16,6 +16,7 @@ import java.util.List;
 import net.sf.jsqlparser.statement.create.table.ColDataType;
 import net.sf.jsqlparser.statement.create.table.Index;
 import net.sf.jsqlparser.statement.select.PlainSelect;
+import net.sf.jsqlparser.util.SelectUtils;
 
 public class AlterExpression {
 
@@ -281,13 +282,13 @@ public class AlterExpression {
             b.append(index);
         }
         if (getConstraints() != null && !getConstraints().isEmpty()) {
-            b.append(' ').append(PlainSelect.getStringList(constraints, false, false));
+            b.append(' ').append(SelectUtils.getStringList(constraints, false, false));
         }
         if (getUseEqual()) {
             b.append('=');
         }
         if (parameters != null && !parameters.isEmpty()) {
-            b.append(' ').append(PlainSelect.getStringList(parameters, false, false));
+            b.append(' ').append(SelectUtils.getStringList(parameters, false, false));
         }
 
         return b.toString();
@@ -331,7 +332,7 @@ public class AlterExpression {
             if (columnSpecs == null || columnSpecs.isEmpty()) {
                 return "";
             }
-            return " " + PlainSelect.getStringList(columnSpecs, false, false);
+            return " " + SelectUtils.getStringList(columnSpecs, false, false);
         }
     }
 

@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.sf.jsqlparser.expression.Expression;
-import net.sf.jsqlparser.statement.select.PlainSelect;
+import net.sf.jsqlparser.util.SelectUtils;
 
 /**
  * A list of expressions, as in SELECT A FROM TAB WHERE B IN (expr1,expr2,expr3)
@@ -48,6 +48,6 @@ public class ExpressionList implements ItemsList {
 
     @Override
     public String toString() {
-        return PlainSelect.getStringList(expressions, true, true);
+        return SelectUtils.getStringList(expressions, true, true);
     }
 }

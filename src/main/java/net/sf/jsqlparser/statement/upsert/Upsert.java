@@ -17,8 +17,8 @@ import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.schema.Table;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.StatementVisitor;
-import net.sf.jsqlparser.statement.select.PlainSelect;
 import net.sf.jsqlparser.statement.select.Select;
+import net.sf.jsqlparser.util.SelectUtils;
 
 public class Upsert implements Statement {
 
@@ -116,7 +116,7 @@ public class Upsert implements Statement {
         sb.append("UPSERT INTO ");
         sb.append(table).append(" ");
         if (columns != null) {
-            sb.append(PlainSelect.getStringList(columns, true, true)).append(" ");
+            sb.append(SelectUtils.getStringList(columns, true, true)).append(" ");
         }
         if (useValues) {
             sb.append("VALUES ");

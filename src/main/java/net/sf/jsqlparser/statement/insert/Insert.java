@@ -21,6 +21,7 @@ import net.sf.jsqlparser.statement.common.HasLimit;
 import net.sf.jsqlparser.statement.common.HasOrderBy;
 import net.sf.jsqlparser.statement.common.HasWhere;
 import net.sf.jsqlparser.statement.select.*;
+import net.sf.jsqlparser.util.SelectUtils;
 
 public class Insert implements Statement, net.sf.jsqlparser.statement.common.HasMainTable,HasLimit,HasOrderBy,HasWhere {
 
@@ -198,7 +199,7 @@ public class Insert implements Statement, net.sf.jsqlparser.statement.common.Has
         sql.append("INTO ");
         sql.append(table).append(" ");
         if (columns != null) {
-            sql.append(PlainSelect.getStringList(columns, true, true)).append(" ");
+            sql.append(SelectUtils.getStringList(columns, true, true)).append(" ");
         }
 
         if (useValues) {
@@ -244,7 +245,7 @@ public class Insert implements Statement, net.sf.jsqlparser.statement.common.Has
         if (isReturningAllColumns()) {
             sql.append(" RETURNING *");
         } else if (getReturningExpressionList() != null) {
-            sql.append(" RETURNING ").append(PlainSelect.
+            sql.append(" RETURNING ").append(SelectUtils.
                     getStringList(getReturningExpressionList(), true, false));
         }
 

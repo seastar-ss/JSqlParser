@@ -13,7 +13,7 @@ import java.util.List;
 import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.StatementVisitor;
-import net.sf.jsqlparser.statement.select.PlainSelect;
+import net.sf.jsqlparser.util.SelectUtils;
 
 public class Execute implements Statement {
 
@@ -73,7 +73,7 @@ public class Execute implements Statement {
     public String toString() {
         return execType.name() + " " + name
                 + (exprList != null && exprList.getExpressions() != null ? " "
-                + PlainSelect.getStringList(exprList.getExpressions(), true, parenthesis) : "");
+                + SelectUtils.getStringList(exprList.getExpressions(), true, parenthesis) : "");
     }
 
     public static enum EXEC_TYPE {

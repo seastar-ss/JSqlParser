@@ -12,7 +12,7 @@ package net.sf.jsqlparser.expression;
 import java.util.List;
 
 import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
-import net.sf.jsqlparser.statement.select.PlainSelect;
+import net.sf.jsqlparser.util.SelectUtils;
 
 /**
  * CASE/WHEN expression.
@@ -88,7 +88,7 @@ public class CaseExpression extends ASTNodeAccessImpl implements Expression {
     @Override
     public String toString() {
         return "CASE " + ((switchExpression != null) ? switchExpression + " " : "")
-                + PlainSelect.getStringList(whenClauses, false, false) + " "
+                + SelectUtils.getStringList(whenClauses, false, false) + " "
                 + ((elseExpression != null) ? "ELSE " + elseExpression + " " : "") + "END";
     }
 }

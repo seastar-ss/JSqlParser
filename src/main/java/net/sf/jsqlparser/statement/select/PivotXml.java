@@ -10,6 +10,7 @@
 package net.sf.jsqlparser.statement.select;
 
 import net.sf.jsqlparser.schema.Column;
+import net.sf.jsqlparser.util.SelectUtils;
 
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class PivotXml extends Pivot {
                 toString();
         return "PIVOT XML ("
                 + PlainSelect.getStringList(getFunctionItems())
-                + " FOR " + PlainSelect.
+                + " FOR " + SelectUtils.
                         getStringList(forColumns, true, forColumns != null && forColumns.size() > 1)
                 + " IN (" + in + "))";
     }

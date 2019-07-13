@@ -16,7 +16,6 @@ import net.sf.jsqlparser.expression.ExpressionVisitor;
 import net.sf.jsqlparser.expression.ExpressionVisitorAdapter;
 import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.statement.select.Join;
-import net.sf.jsqlparser.statement.select.PlainSelect;
 import net.sf.jsqlparser.statement.update.Update;
 import net.sf.jsqlparser.statement.select.Select;
 import net.sf.jsqlparser.statement.select.SelectVisitor;
@@ -24,6 +23,7 @@ import net.sf.jsqlparser.statement.select.OrderByVisitor;
 import net.sf.jsqlparser.statement.select.OrderByElement;
 import net.sf.jsqlparser.statement.select.SelectExpressionItem;
 import net.sf.jsqlparser.statement.select.SelectVisitorAdapter;
+import net.sf.jsqlparser.util.SelectUtils;
 
 public class UpdateDeParser implements OrderByVisitor {
 
@@ -49,7 +49,7 @@ public class UpdateDeParser implements OrderByVisitor {
     }
 
     public void deParse(Update update) {
-        buffer.append("UPDATE ").append(PlainSelect.getStringList(update.getTables(), true, false)).
+        buffer.append("UPDATE ").append(SelectUtils.getStringList(update.getTables(), true, false)).
                 append(" SET ");
 
         if (!update.isUseSelect()) {

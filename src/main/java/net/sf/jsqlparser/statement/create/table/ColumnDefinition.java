@@ -11,7 +11,7 @@ package net.sf.jsqlparser.statement.create.table;
 
 import java.util.List;
 
-import net.sf.jsqlparser.statement.select.PlainSelect;
+import net.sf.jsqlparser.util.SelectUtils;
 
 public class ColumnDefinition {
 
@@ -45,7 +45,7 @@ public class ColumnDefinition {
 
     @Override
     public String toString() {
-        return columnName + " " + colDataType + (columnSpecStrings != null ? " " + PlainSelect.
-                getStringList(columnSpecStrings, false, false) : "");
+        return new StringBuilder(columnName).append(colDataType).append(" ")
+                .append (columnSpecStrings != null ? SelectUtils.getStringList(columnSpecStrings, false, false) : "").toString();
     }
 }

@@ -14,8 +14,8 @@ import java.util.Iterator;
 import net.sf.jsqlparser.statement.create.table.ColumnDefinition;
 import net.sf.jsqlparser.statement.create.table.CreateTable;
 import net.sf.jsqlparser.statement.create.table.Index;
-import net.sf.jsqlparser.statement.select.PlainSelect;
 import net.sf.jsqlparser.statement.select.Select;
+import net.sf.jsqlparser.util.SelectUtils;
 
 
 public class CreateTableDeParser {
@@ -38,7 +38,7 @@ public class CreateTableDeParser {
         if (createTable.isUnlogged()) {
             buffer.append("UNLOGGED ");
         }
-        String params = PlainSelect.
+        String params = SelectUtils.
                 getStringList(createTable.getCreateOptionsStrings(), false, false);
         if (!"".equals(params)) {
             buffer.append(params).append(' ');
@@ -92,7 +92,7 @@ public class CreateTableDeParser {
             }
         }
 
-        params = PlainSelect.getStringList(createTable.getTableOptionsStrings(), false, false);
+        params = SelectUtils.getStringList(createTable.getTableOptionsStrings(), false, false);
         if (!"".equals(params)) {
             buffer.append(' ').append(params);
         }
