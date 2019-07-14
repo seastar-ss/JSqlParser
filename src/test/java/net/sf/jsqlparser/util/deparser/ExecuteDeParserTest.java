@@ -9,21 +9,20 @@
  */
 package net.sf.jsqlparser.util.deparser;
 
-import static org.junit.Assert.assertTrue;
-import static org.mockito.BDDMockito.then;
-import static org.mockito.Mockito.mock;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mock;
-
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.ExpressionVisitor;
 import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 import net.sf.jsqlparser.statement.execute.Execute;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertTrue;
+import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.mock;
 
 public class ExecuteDeParserTest {
     private ExecuteDeParser executeDeParser;

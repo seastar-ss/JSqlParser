@@ -9,11 +9,6 @@
  */
 package net.sf.jsqlparser.statement.select;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-
 import net.sf.jsqlparser.expression.Alias;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.OracleHierarchicalExpression;
@@ -27,8 +22,13 @@ import net.sf.jsqlparser.statement.common.HasMainTable;
 import net.sf.jsqlparser.statement.common.HasWhere;
 import net.sf.jsqlparser.util.SelectUtils;
 
-public class PlainSelect extends ASTNodeAccessImpl implements SelectBody, HasWhere,HasMainTable,HasLimit,
-        net.sf.jsqlparser.statement.common.HasOrderBy,HasColumnExpression {
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
+public class PlainSelect extends ASTNodeAccessImpl implements SelectBody, HasWhere, HasMainTable, HasLimit,
+        net.sf.jsqlparser.statement.common.HasOrderBy, HasColumnExpression {
 
     private Distinct distinct = null;
     private List<SelectItem> selectItems;
@@ -338,7 +338,7 @@ public class PlainSelect extends ASTNodeAccessImpl implements SelectBody, HasWhe
 
         if (intoTables != null) {
             sql.append(" INTO ");
-            for (Iterator<Table> iter = intoTables.iterator(); iter.hasNext();) {
+            for (Iterator<Table> iter = intoTables.iterator(); iter.hasNext(); ) {
                 sql.append(iter.next().toString());
                 if (iter.hasNext()) {
                     sql.append(", ");
@@ -444,12 +444,12 @@ public class PlainSelect extends ASTNodeAccessImpl implements SelectBody, HasWhe
     /**
      * List the toString out put of the objects in the List comma separated. If the List is null or
      * empty an empty string is returned.
-     *
+     * <p>
      * The same as getStringList(list, true, false)
      *
-     * @see SelectUtils#getStringList(List, boolean, boolean)
      * @param list list of objects with toString methods
      * @return comma separated list of the elements in the list
+     * @see SelectUtils#getStringList(List, boolean, boolean)
      */
     public static String getStringList(List<?> list) {
         return SelectUtils.getStringList(list, true, false);
@@ -473,8 +473,8 @@ public class PlainSelect extends ASTNodeAccessImpl implements SelectBody, HasWhe
 
     @Override
     public Table getTable() {
-        if(fromItem instanceof Table){
-            return (Table)fromItem;
+        if (fromItem instanceof Table) {
+            return (Table) fromItem;
         }
         return null;
     }
@@ -486,13 +486,13 @@ public class PlainSelect extends ASTNodeAccessImpl implements SelectBody, HasWhe
 
     @Override
     public boolean addColExpression(Table table, String column, String alias) {
-        selectItems.add(new SelectExpressionItem().setAlias(new Alias(alias)).setExpression(new Column(table,column)));
+        selectItems.add(new SelectExpressionItem().setAlias(new Alias(alias)).setExpression(new Column(table, column)));
         return true;
     }
 
     @Override
     public int removeAllColExpression() {
-        int size=selectItems.size();
+        int size = selectItems.size();
         selectItems.clear();
         return size;
     }

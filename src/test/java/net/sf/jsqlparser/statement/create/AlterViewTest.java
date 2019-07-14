@@ -10,8 +10,9 @@
 package net.sf.jsqlparser.statement.create;
 
 import net.sf.jsqlparser.JSQLParserException;
-import static net.sf.jsqlparser.test.TestUtils.*;
 import org.junit.Test;
+
+import static net.sf.jsqlparser.test.TestUtils.assertSqlCanBeParsedAndDeparsed;
 
 public class AlterViewTest {
 

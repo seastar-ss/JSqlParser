@@ -9,11 +9,12 @@
  */
 package net.sf.jsqlparser.expression;
 
-import java.util.List;
 import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
 import net.sf.jsqlparser.statement.select.OrderByElement;
 import net.sf.jsqlparser.util.SelectUtils;
+
+import java.util.List;
 
 public class MySQLGroupConcat extends ASTNodeAccessImpl implements Expression {
 

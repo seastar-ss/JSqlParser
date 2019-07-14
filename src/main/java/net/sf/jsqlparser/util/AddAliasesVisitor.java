@@ -9,10 +9,12 @@
  */
 package net.sf.jsqlparser.util;
 
-import java.util.*;
-import net.sf.jsqlparser.expression.*;
+import net.sf.jsqlparser.expression.Alias;
 import net.sf.jsqlparser.statement.select.*;
 import net.sf.jsqlparser.statement.values.ValuesStatement;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Add aliases to every column and expression selected by a select - statement. Existing aliases are

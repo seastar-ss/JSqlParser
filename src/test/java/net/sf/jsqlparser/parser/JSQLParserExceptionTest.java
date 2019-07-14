@@ -10,10 +10,7 @@
 package net.sf.jsqlparser.parser;
 
 import net.sf.jsqlparser.JSQLParserException;
-import org.junit.After;
-import org.junit.AfterClass;
-
-import static org.junit.Assert.*;
+import org.junit.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -21,12 +18,9 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
- *
  * @author schwitters
  */
 public class JSQLParserExceptionTest {
@@ -56,13 +50,14 @@ public class JSQLParserExceptionTest {
     @Test
     public void testExceptionWithCause() throws Exception {
         IllegalArgumentException arg1 = new IllegalArgumentException();
-        JSQLParserException ex1=new JSQLParserException("", arg1);
+        JSQLParserException ex1 = new JSQLParserException("", arg1);
         assertSame(arg1, ex1.getCause());
     }
+
     @Test
     public void testExceptionPrintStacktrace() throws Exception {
         IllegalArgumentException arg1 = new IllegalArgumentException("BRATKARTOFFEL");
-        JSQLParserException ex1=new JSQLParserException("", arg1);
+        JSQLParserException ex1 = new JSQLParserException("", arg1);
         StringWriter sw = new StringWriter();
         ex1.printStackTrace(new PrintWriter(sw, true));
         assertTrue(sw.toString().contains("BRATKARTOFFEL"));
@@ -74,7 +69,7 @@ public class JSQLParserExceptionTest {
 
     @Test
     public void testExceptionPrintStacktraceNoCause() throws Exception {
-        JSQLParserException ex1=new JSQLParserException("", null);
+        JSQLParserException ex1 = new JSQLParserException("", null);
         StringWriter sw = new StringWriter();
         ex1.printStackTrace(new PrintWriter(sw, true));
         assertFalse(sw.toString().contains("BRATKARTOFFEL"));
@@ -82,11 +77,12 @@ public class JSQLParserExceptionTest {
         ex1.printStackTrace(new PrintStream(bos, true));
         assertFalse(new String(bos.toByteArray(), StandardCharsets.UTF_8).contains("BRATKARTOFFEL"));
     }
+
     @Test
     public void testExceptionDefaultContructorCauseInit() throws Exception {
-        JSQLParserException ex1=new JSQLParserException();
+        JSQLParserException ex1 = new JSQLParserException();
         assertNull(ex1.getCause());
-        ex1=new JSQLParserException((Throwable) null);
+        ex1 = new JSQLParserException((Throwable) null);
         assertNull(ex1.getCause());
     }
 

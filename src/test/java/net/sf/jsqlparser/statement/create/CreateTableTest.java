@@ -9,6 +9,14 @@
  */
 package net.sf.jsqlparser.statement.create;
 
+import net.sf.jsqlparser.JSQLParserException;
+import net.sf.jsqlparser.parser.CCJSqlParserManager;
+import net.sf.jsqlparser.statement.create.table.ColumnDefinition;
+import net.sf.jsqlparser.statement.create.table.CreateTable;
+import net.sf.jsqlparser.statement.create.table.Index;
+import net.sf.jsqlparser.test.TestException;
+import org.junit.Test;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.StringReader;
@@ -16,17 +24,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
-import net.sf.jsqlparser.JSQLParserException;
-import net.sf.jsqlparser.parser.CCJSqlParserManager;
-import net.sf.jsqlparser.statement.create.table.ColumnDefinition;
-import net.sf.jsqlparser.statement.create.table.CreateTable;
-import net.sf.jsqlparser.statement.create.table.Index;
-import net.sf.jsqlparser.test.TestException;
-import static net.sf.jsqlparser.test.TestUtils.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import org.junit.Test;
+
+import static net.sf.jsqlparser.test.TestUtils.assertSqlCanBeParsedAndDeparsed;
+import static org.junit.Assert.*;
 
 public class CreateTableTest {
 
@@ -418,13 +418,13 @@ public class CreateTableTest {
                     List colsFound = new ArrayList();
                     if (createTable.getColumnDefinitions() != null) {
                         for (Iterator iter = createTable.getColumnDefinitions().iterator(); iter.
-                                hasNext();) {
+                                hasNext(); ) {
                             ColumnDefinition columnDefinition = (ColumnDefinition) iter.next();
                             String colName = columnDefinition.getColumnName();
                             boolean unique = false;
                             if (createTable.getIndexes() != null) {
                                 for (Iterator iterator = createTable.getIndexes().iterator(); iterator.
-                                        hasNext();) {
+                                        hasNext(); ) {
                                     Index index = (Index) iterator.next();
                                     if (index.getType().equals("PRIMARY KEY") && index.
                                             getColumnsNames().size() == 1
@@ -439,7 +439,7 @@ public class CreateTableTest {
                                 if (columnDefinition.getColumnSpecStrings() != null) {
                                     for (Iterator iterator = columnDefinition.getColumnSpecStrings().
                                             iterator(); iterator
-                                                    .hasNext();) {
+                                                 .hasNext(); ) {
                                         String par = (String) iterator.next();
                                         if (par.equals("UNIQUE")) {
                                             unique = true;

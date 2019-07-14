@@ -9,29 +9,23 @@
  */
 package net.sf.jsqlparser.statement.update;
 
-import java.util.Collections;
-import java.util.List;
-
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.JdbcNamedParameter;
 import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.schema.Table;
+import net.sf.jsqlparser.statement.Statement;
+import net.sf.jsqlparser.statement.StatementVisitor;
 import net.sf.jsqlparser.statement.common.HasColumnExpression;
 import net.sf.jsqlparser.statement.common.HasMainTable;
 import net.sf.jsqlparser.statement.common.HasOrderBy;
 import net.sf.jsqlparser.statement.common.HasWhere;
-import net.sf.jsqlparser.statement.Statement;
-import net.sf.jsqlparser.statement.StatementVisitor;
-import net.sf.jsqlparser.statement.select.FromItem;
-import net.sf.jsqlparser.statement.select.Join;
-import net.sf.jsqlparser.statement.select.PlainSelect;
-import net.sf.jsqlparser.statement.select.Select;
-import net.sf.jsqlparser.statement.select.OrderByElement;
-import net.sf.jsqlparser.statement.select.Limit;
-import net.sf.jsqlparser.statement.select.SelectExpressionItem;
+import net.sf.jsqlparser.statement.select.*;
 import net.sf.jsqlparser.util.SelectUtils;
 
-public class Update implements Statement ,HasWhere,HasMainTable, net.sf.jsqlparser.statement.common.HasLimit,HasOrderBy,HasColumnExpression {
+import java.util.Collections;
+import java.util.List;
+
+public class Update implements Statement, HasWhere, HasMainTable, net.sf.jsqlparser.statement.common.HasLimit, HasOrderBy, HasColumnExpression {
 
     private List<Table> tables;
     private Expression where;
@@ -224,7 +218,7 @@ public class Update implements Statement ,HasWhere,HasMainTable, net.sf.jsqlpars
 
     @Override
     public Table getTable() {
-        if(tables!=null && tables.size()==1){
+        if (tables != null && tables.size() == 1) {
             return tables.get(0);
         }
         return null;
@@ -237,7 +231,7 @@ public class Update implements Statement ,HasWhere,HasMainTable, net.sf.jsqlpars
 
     @Override
     public boolean addColExpression(Table table, String column, String alias) {
-        columns.add(new Column(table,column));
+        columns.add(new Column(table, column));
         expressions.add(new JdbcNamedParameter(alias));
         return true;
     }

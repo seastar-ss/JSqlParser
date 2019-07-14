@@ -9,9 +9,9 @@
  */
 package net.sf.jsqlparser.util.cnfexpression;
 
-import java.util.List;
-
 import net.sf.jsqlparser.expression.Expression;
+
+import java.util.List;
 
 public final class MultiOrExpression extends MultipleExpression {
 

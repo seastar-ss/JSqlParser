@@ -9,11 +9,11 @@
  */
 package net.sf.jsqlparser.statement.select;
 
-import java.util.List;
-
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
 import net.sf.jsqlparser.schema.Column;
+
+import java.util.List;
 
 public class Join extends ASTNodeAccessImpl {
 
@@ -215,8 +215,8 @@ public class Join extends ASTNodeAccessImpl {
             ret
                     .append("JOIN ")
                     .append(rightItem)
-                    .append(((joinWindow != null) ? " WITHIN " + joinWindow : ""))
-                    .append(((onExpression != null) ? " ON " + onExpression : ""))
+                    .append((joinWindow != null) ? " WITHIN " + joinWindow : "")
+                    .append((onExpression != null) ? " ON " + onExpression : "")
                     .append(PlainSelect.getFormatedList(usingColumns, "USING", true, true))
                     .toString();
         }

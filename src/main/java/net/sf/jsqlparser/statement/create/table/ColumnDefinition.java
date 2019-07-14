@@ -9,9 +9,9 @@
  */
 package net.sf.jsqlparser.statement.create.table;
 
-import java.util.List;
-
 import net.sf.jsqlparser.util.SelectUtils;
+
+import java.util.List;
 
 public class ColumnDefinition {
 
@@ -45,7 +45,7 @@ public class ColumnDefinition {
 
     @Override
     public String toString() {
-        return new StringBuilder(columnName).append(colDataType).append(" ")
-                .append (columnSpecStrings != null ? SelectUtils.getStringList(columnSpecStrings, false, false) : "").toString();
+        return new StringBuilder(columnName).append(" ").append(colDataType).append(" ")
+                .append(columnSpecStrings != null ? SelectUtils.getStringList(columnSpecStrings, false, false) : "").toString();
     }
 }

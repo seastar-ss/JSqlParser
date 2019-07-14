@@ -9,14 +9,15 @@
  */
 package net.sf.jsqlparser.statement.select;
 
-import java.util.Iterator;
-import java.util.List;
 import net.sf.jsqlparser.expression.Alias;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.ExpressionVisitor;
 import net.sf.jsqlparser.expression.operators.relational.ItemsList;
 import net.sf.jsqlparser.expression.operators.relational.ItemsListVisitor;
 import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
+
+import java.util.Iterator;
+import java.util.List;
 
 public class SubSelect extends ASTNodeAccessImpl implements FromItem, Expression, ItemsList {
 
@@ -94,7 +95,7 @@ public class SubSelect extends ASTNodeAccessImpl implements FromItem, Expression
         }
         if (withItemsList != null && !withItemsList.isEmpty()) {
             retval.append("WITH ");
-            for (Iterator<WithItem> iter = withItemsList.iterator(); iter.hasNext();) {
+            for (Iterator<WithItem> iter = withItemsList.iterator(); iter.hasNext(); ) {
                 WithItem withItem = iter.next();
                 retval.append(withItem);
                 if (iter.hasNext()) {

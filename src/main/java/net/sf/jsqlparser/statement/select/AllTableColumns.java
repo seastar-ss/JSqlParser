@@ -10,7 +10,7 @@
 package net.sf.jsqlparser.statement.select;
 
 import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
-import net.sf.jsqlparser.schema.*;
+import net.sf.jsqlparser.schema.Table;
 
 public class AllTableColumns extends ASTNodeAccessImpl implements SelectItem {
 

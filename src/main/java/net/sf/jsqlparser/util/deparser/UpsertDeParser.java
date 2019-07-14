@@ -9,26 +9,26 @@
  */
 package net.sf.jsqlparser.util.deparser;
 
-import java.util.Iterator;
-
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.ExpressionVisitor;
 import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
-import net.sf.jsqlparser.expression.operators.relational.NamedExpressionList;
 import net.sf.jsqlparser.expression.operators.relational.ItemsListVisitor;
 import net.sf.jsqlparser.expression.operators.relational.MultiExpressionList;
+import net.sf.jsqlparser.expression.operators.relational.NamedExpressionList;
 import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.statement.select.SelectVisitor;
 import net.sf.jsqlparser.statement.select.SubSelect;
 import net.sf.jsqlparser.statement.select.WithItem;
 import net.sf.jsqlparser.statement.upsert.Upsert;
 
+import java.util.Iterator;
+
 public class UpsertDeParser implements ItemsListVisitor {
 
     protected StringBuilder buffer;
     private ExpressionVisitor expressionVisitor;
     private SelectVisitor selectVisitor;
-    
+
     public UpsertDeParser(ExpressionVisitor expressionVisitor, SelectVisitor selectVisitor, StringBuilder buffer) {
         this.buffer = buffer;
         this.expressionVisitor = expressionVisitor;
@@ -64,10 +64,10 @@ public class UpsertDeParser implements ItemsListVisitor {
         }
 
     }
-    
+
     private void appendColumns(Upsert upsert) {
         buffer.append(" (");
-        for (Iterator<Column> iter = upsert.getColumns().iterator(); iter.hasNext();) {
+        for (Iterator<Column> iter = upsert.getColumns().iterator(); iter.hasNext(); ) {
             Column column = iter.next();
             buffer.append(column.getColumnName());
             if (iter.hasNext()) {
@@ -76,7 +76,7 @@ public class UpsertDeParser implements ItemsListVisitor {
         }
         buffer.append(")");
     }
-    
+
     private void appendSelect(Upsert upsert) {
         buffer.append(" ");
         if (upsert.isUseSelectBrackets()) {
@@ -94,7 +94,7 @@ public class UpsertDeParser implements ItemsListVisitor {
             buffer.append(")");
         }
     }
-    
+
     private void appendDuplicate(Upsert upsert) {
         buffer.append(" ON DUPLICATE KEY UPDATE ");
         for (int i = 0; i < upsert.getDuplicateUpdateColumns().size(); i++) {
@@ -112,7 +112,7 @@ public class UpsertDeParser implements ItemsListVisitor {
     @Override
     public void visit(ExpressionList expressionList) {
         buffer.append(" VALUES (");
-        for (Iterator<Expression> iter = expressionList.getExpressions().iterator(); iter.hasNext();) {
+        for (Iterator<Expression> iter = expressionList.getExpressions().iterator(); iter.hasNext(); ) {
             Expression expression = iter.next();
             expression.accept(expressionVisitor);
             if (iter.hasNext()) {
@@ -122,7 +122,7 @@ public class UpsertDeParser implements ItemsListVisitor {
         buffer.append(")");
     }
 
-// not used by top-level upsert
+    // not used by top-level upsert
     @Override
     public void visit(NamedExpressionList namedExpressionList) {
     }
@@ -130,9 +130,9 @@ public class UpsertDeParser implements ItemsListVisitor {
     @Override
     public void visit(MultiExpressionList multiExprList) {
         buffer.append(" VALUES ");
-        for (Iterator<ExpressionList> it = multiExprList.getExprList().iterator(); it.hasNext();) {
+        for (Iterator<ExpressionList> it = multiExprList.getExprList().iterator(); it.hasNext(); ) {
             buffer.append("(");
-            for (Iterator<Expression> iter = it.next().getExpressions().iterator(); iter.hasNext();) {
+            for (Iterator<Expression> iter = it.next().getExpressions().iterator(); iter.hasNext(); ) {
                 Expression expression = iter.next();
                 expression.accept(expressionVisitor);
                 if (iter.hasNext()) {

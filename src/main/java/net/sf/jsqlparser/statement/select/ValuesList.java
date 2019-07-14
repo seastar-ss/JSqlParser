@@ -9,13 +9,13 @@
  */
 package net.sf.jsqlparser.statement.select;
 
+import net.sf.jsqlparser.expression.Alias;
 import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 import net.sf.jsqlparser.expression.operators.relational.MultiExpressionList;
+import net.sf.jsqlparser.util.SelectUtils;
 
 import java.util.Iterator;
 import java.util.List;
-import net.sf.jsqlparser.expression.Alias;
-import net.sf.jsqlparser.util.SelectUtils;
 
 public class ValuesList implements FromItem {
 
@@ -77,7 +77,7 @@ public class ValuesList implements FromItem {
 
         b.append("(VALUES ");
         for (Iterator<ExpressionList> it = getMultiExpressionList().getExprList().iterator(); it.
-                hasNext();) {
+                hasNext(); ) {
             b.append(SelectUtils.getStringList(it.next().getExpressions(), true, !isNoBrackets()));
             if (it.hasNext()) {
                 b.append(", ");
@@ -89,7 +89,7 @@ public class ValuesList implements FromItem {
 
             if (columnNames != null) {
                 b.append("(");
-                for (Iterator<String> it = columnNames.iterator(); it.hasNext();) {
+                for (Iterator<String> it = columnNames.iterator(); it.hasNext(); ) {
                     b.append(it.next());
                     if (it.hasNext()) {
                         b.append(", ");

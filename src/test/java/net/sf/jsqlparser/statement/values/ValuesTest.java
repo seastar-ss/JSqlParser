@@ -10,8 +10,9 @@
 package net.sf.jsqlparser.statement.values;
 
 import net.sf.jsqlparser.JSQLParserException;
-import static net.sf.jsqlparser.test.TestUtils.assertSqlCanBeParsedAndDeparsed;
 import org.junit.Test;
+
+import static net.sf.jsqlparser.test.TestUtils.assertSqlCanBeParsedAndDeparsed;
 
 public class ValuesTest {
 

@@ -9,29 +9,26 @@
  */
 package net.sf.jsqlparser.util.cnfexpression;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-import java.util.Stack;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.NotExpression;
+
+import java.util.*;
 
 /**
  * This class handles the conversion from a normal expression tree into
  * the CNF form.
- *
+ * <p>
  * Here is the definition of CNF form:
  * https://en.wikipedia.org/wiki/Conjunctive_normal_form
- *
+ * <p>
  * Basically it will follow these steps:
- *
+ * <p>
  * To help understanding, I will generate an example:
  * Here is the original tree:
  * OR
- *             / \
+ * / \
  * OR NOT
- *         / \ |
+ * / \ |
  * NOT H AND
  * | / \
  * NOT G OR
@@ -39,23 +36,23 @@ import net.sf.jsqlparser.expression.NotExpression;
  * F H NOT
  * |
  * OR
- *                             / \
+ * / \
  * AND L
- *                           / \
+ * / \
  * ( ) ( )
  * | |
  * J K
- *
+ * <p>
  * 1. rebuild the tree by replacing the "and" and "or" operators
  * (which are binary) into their counterparts node that could hold
  * multiple elements. Also, leave out the parenthesis node between the
  * conditional operators to make the tree uniform.
- *
+ * <p>
  * After the transform, the result should be like this:
  * OR(M)
- *             / \
+ * / \
  * OR(M) NOT
- *         / \ |
+ * / \ |
  * NOT H AND(M)
  * | / \
  * NOT G OR(M)
@@ -63,140 +60,139 @@ import net.sf.jsqlparser.expression.NotExpression;
  * F H NOT
  * |
  * OR(M)
- *                             / \
+ * / \
  * AND(M) L
- *                           / \
+ * / \
  * J K
- *
+ * <p>
  * 2. push the not operators into the bottom of the expression. That
  * means the not operator will be the root of the expression tree
  * where no "and" or "or" exists. Be sure use the De Morgan's law
  * and double not law.
- *
+ * <p>
  * How to use De Morgan law:
  * For example, here is the original expression tree:
  * NOT
  * |
  * AND(M)
- *              / \
+ * / \
  * G H
- *
+ * <p>
  * After we use the De Morgan law, the result should be like this:
  * OR(M)
- *              / \
+ * / \
  * NOT NOT
  * | |
  * G H
- *
+ * <p>
  * After the transform, the result should be like this:
  * OR(M)
- *              / \
+ * / \
  * OR(M) OR(M)
- *          / \ / \
+ * / \ / \
  * F H NOT AND(M)
  * | / \
  * G NOT OR(M)
  * | / \
  * H AND(M) L
- *                                   / \
+ * / \
  * J K
- *
+ * <p>
  * 3. gather all the adjacent "and" or "or" operator together.
  * After doing that, the expression tree will be presented as:
  * all the and expression will be in either odd or even levels,
  * this will be the same for the or operator.
- *
+ * <p>
  * After the transform, the expression tree should be like this:
  * OR(M)
- *               / / \ \
+ * / / \ \
  * F H NOT AND(M)
  * | / \
  * G NOT OR(M)
  * | / \
  * H AND(M) L
- *                                      / \
+ * / \
  * J K
- *
+ * <p>
  * 4. push the and operator upwards until the root is an and
  * operator and all the children are or operators with multiple
  * components. At this time we get the result: an expression in CNF form.
  * How do we push and up? Use distribution law!
- *
+ * <p>
  * For example, here is the way to push the and up and merge them.
  * OR
- *                    / \
+ * / \
  * AND L
- *                / \
+ * / \
  * J K
- *
+ * <p>
  * In the normal form, it could be: (J AND K) OR L.
  * If we apply the distribution law, we will get the result like this:
  * (J OR L) AND (K OR L), the tree form of this should be like:
  * AND
- *                   / \
+ * / \
  * OR OR
- *                / \ / \
+ * / \ / \
  * J L K L
- *
+ * <p>
  * So after we push the AND at the deepest level up and merge it with the
  * existing add, we get this result.
  * OR(M)
- *           / / \ \
+ * / / \ \
  * F H NOT AND(M)
  * | / | \
  * G NOT OR(M) OR(M)
  * | / \ / \
  * H J L K L
- *
+ * <p>
  * Now let us push the and up and we will get the result like this:
  * AND(M)
- *             / | \
+ * / | \
  * OR(M) OR(M) OR(M)
- *     / / \ \ / / | \ \ / / | \ \
+ * / / \ \ / / | \ \ / / | \ \
  * F H NOT NOT F H NOT J L F H NOT K L
  * | | | |
  * G H G G
- *
+ * <p>
  * 5. The last step, convert the Multiple Expression back to the binary
  * form. Note the final tree shall be left-inclined.
- *
+ * <p>
  * The final expression tree shall be like this:
  * AND
- *                                       / \
+ * / \
  * AND ( )
- *                             / \ |
+ * / \ |
  * ( ) ( ) part1
  * | |
  * OR part2
- *                        / \
+ * / \
  * OR NOT
- *                  / \ |
+ * / \ |
  * OR NOT H
- *            / \ |
+ * / \ |
  * F H G
- *
+ * <p>
  * part1: OR
- *                                          / \
+ * / \
  * OR L
- *                                    / \
+ * / \
  * OR K
- *                              / \
+ * / \
  * OR NOT
- *                         / \ |
+ * / \ |
  * F H G
- *
+ * <p>
  * part2: OR
- *                                         / \
+ * / \
  * OR L
- *                                   / \
+ * / \
  * OR J
- *                            / \
+ * / \
  * OR NOT
- *                      / \ |
+ * / \ |
  * F H G
  *
  * @author messfish
- *
  */
 public class CNFConverter {
 

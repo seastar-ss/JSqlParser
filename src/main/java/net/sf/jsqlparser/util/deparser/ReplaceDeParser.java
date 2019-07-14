@@ -9,18 +9,18 @@
  */
 package net.sf.jsqlparser.util.deparser;
 
-import java.util.Iterator;
-
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.ExpressionVisitor;
 import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
-import net.sf.jsqlparser.expression.operators.relational.NamedExpressionList;
 import net.sf.jsqlparser.expression.operators.relational.ItemsListVisitor;
 import net.sf.jsqlparser.expression.operators.relational.MultiExpressionList;
+import net.sf.jsqlparser.expression.operators.relational.NamedExpressionList;
 import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.statement.replace.Replace;
 import net.sf.jsqlparser.statement.select.SelectVisitor;
 import net.sf.jsqlparser.statement.select.SubSelect;
+
+import java.util.Iterator;
 
 public class ReplaceDeParser implements ItemsListVisitor {
 
@@ -91,7 +91,7 @@ public class ReplaceDeParser implements ItemsListVisitor {
     @Override
     public void visit(ExpressionList expressionList) {
         buffer.append("VALUES (");
-        for (Iterator<Expression> iter = expressionList.getExpressions().iterator(); iter.hasNext();) {
+        for (Iterator<Expression> iter = expressionList.getExpressions().iterator(); iter.hasNext(); ) {
             Expression expression = iter.next();
             expression.accept(expressionVisitor);
             if (iter.hasNext()) {
@@ -101,7 +101,7 @@ public class ReplaceDeParser implements ItemsListVisitor {
         buffer.append(")");
     }
 
-// NamedExpressionList not use by top-level Replace
+    // NamedExpressionList not use by top-level Replace
     @Override
     public void visit(NamedExpressionList namedExpressionList) {
     }
@@ -130,9 +130,9 @@ public class ReplaceDeParser implements ItemsListVisitor {
     @Override
     public void visit(MultiExpressionList multiExprList) {
         buffer.append("VALUES ");
-        for (Iterator<ExpressionList> it = multiExprList.getExprList().iterator(); it.hasNext();) {
+        for (Iterator<ExpressionList> it = multiExprList.getExprList().iterator(); it.hasNext(); ) {
             buffer.append("(");
-            for (Iterator<Expression> iter = it.next().getExpressions().iterator(); iter.hasNext();) {
+            for (Iterator<Expression> iter = it.next().getExpressions().iterator(); iter.hasNext(); ) {
                 Expression expression = iter.next();
                 expression.accept(expressionVisitor);
                 if (iter.hasNext()) {

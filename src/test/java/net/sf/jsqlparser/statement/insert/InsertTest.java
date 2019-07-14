@@ -9,7 +9,6 @@
  */
 package net.sf.jsqlparser.statement.insert;
 
-import java.io.StringReader;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.expression.DoubleValue;
 import net.sf.jsqlparser.expression.JdbcParameter;
@@ -20,10 +19,13 @@ import net.sf.jsqlparser.parser.CCJSqlParserManager;
 import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.schema.Table;
 import net.sf.jsqlparser.statement.select.PlainSelect;
-import static net.sf.jsqlparser.test.TestUtils.assertSqlCanBeParsedAndDeparsed;
-import static org.junit.Assert.*;
 import org.junit.Ignore;
 import org.junit.Test;
+
+import java.io.StringReader;
+
+import static net.sf.jsqlparser.test.TestUtils.assertSqlCanBeParsedAndDeparsed;
+import static org.junit.Assert.*;
 
 public class InsertTest {
 
@@ -53,7 +55,7 @@ public class InsertTest {
         assertEquals(3, ((ExpressionList) insert.getItemsList()).getExpressions().size());
         assertTrue(((ExpressionList) insert.getItemsList()).getExpressions().get(0) instanceof JdbcParameter);
         assertEquals(2.3, ((DoubleValue) ((ExpressionList) insert.getItemsList()).getExpressions().
-                get(2)).getValue(),
+                        get(2)).getValue(),
                 0.0);
         assertEquals(statement, "" + insert);
 

@@ -11,9 +11,9 @@ package net.sf.jsqlparser.statement.delete;
 
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.schema.Table;
-import net.sf.jsqlparser.statement.common.*;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.StatementVisitor;
+import net.sf.jsqlparser.statement.common.*;
 import net.sf.jsqlparser.statement.select.Join;
 import net.sf.jsqlparser.statement.select.Limit;
 import net.sf.jsqlparser.statement.select.OrderByElement;
@@ -21,7 +21,7 @@ import net.sf.jsqlparser.statement.select.PlainSelect;
 
 import java.util.List;
 
-public class Delete implements Statement,HasWhere,HasMainTable,HasLimit,HasOrderBy,HasColumnExpression {
+public class Delete implements Statement, HasWhere, HasMainTable, HasLimit, HasOrderBy, HasColumnExpression {
 
     private Table table;
     private List<Table> tables;

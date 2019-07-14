@@ -9,9 +9,10 @@
  */
 package net.sf.jsqlparser.statement;
 
+import net.sf.jsqlparser.expression.Expression;
+
 import java.util.ArrayList;
 import java.util.List;
-import net.sf.jsqlparser.expression.Expression;
 
 public final class SetStatement implements Statement {
 

@@ -9,14 +9,16 @@
  */
 package net.sf.jsqlparser.statement.create;
 
-import java.io.StringReader;
 import junit.framework.TestCase;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.parser.CCJSqlParserManager;
 import net.sf.jsqlparser.schema.Table;
 import net.sf.jsqlparser.statement.create.view.CreateView;
 import net.sf.jsqlparser.statement.select.PlainSelect;
-import static net.sf.jsqlparser.test.TestUtils.*;
+
+import java.io.StringReader;
+
+import static net.sf.jsqlparser.test.TestUtils.assertSqlCanBeParsedAndDeparsed;
 
 public class CreateViewTest extends TestCase {
 
@@ -75,27 +77,27 @@ public class CreateViewTest extends TestCase {
         String stmt = "CREATE MATERIALIZED VIEW view1 AS SELECT a, b FROM testtab";
         assertSqlCanBeParsedAndDeparsed(stmt);
     }
-    
+
     public void testCreateForceView() throws JSQLParserException {
         assertSqlCanBeParsedAndDeparsed("CREATE FORCE VIEW view1 AS SELECT a, b FROM testtab");
     }
-    
+
     public void testCreateForceView1() throws JSQLParserException {
         assertSqlCanBeParsedAndDeparsed("CREATE NO FORCE VIEW view1 AS SELECT a, b FROM testtab");
     }
-    
+
     public void testCreateForceView2() throws JSQLParserException {
         assertSqlCanBeParsedAndDeparsed("CREATE OR REPLACE FORCE VIEW view1 AS SELECT a, b FROM testtab");
     }
-    
+
     public void testCreateForceView3() throws JSQLParserException {
         assertSqlCanBeParsedAndDeparsed("CREATE OR REPLACE NO FORCE VIEW view1 AS SELECT a, b FROM testtab");
     }
-    
+
     public void testCreateTemporaryViewIssue604() throws JSQLParserException {
         assertSqlCanBeParsedAndDeparsed("CREATE TEMPORARY VIEW myview AS SELECT * FROM mytable");
     }
-    
+
     public void testCreateTemporaryViewIssue604_2() throws JSQLParserException {
         assertSqlCanBeParsedAndDeparsed("CREATE TEMP VIEW myview AS SELECT * FROM mytable");
     }

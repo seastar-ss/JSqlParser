@@ -9,14 +9,14 @@
  */
 package net.sf.jsqlparser.statement.create.table;
 
-import java.util.List;
-
 import net.sf.jsqlparser.schema.Table;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.StatementVisitor;
 import net.sf.jsqlparser.statement.select.PlainSelect;
 import net.sf.jsqlparser.statement.select.Select;
 import net.sf.jsqlparser.util.SelectUtils;
+
+import java.util.List;
 
 public class CreateTable implements Statement {
 
@@ -121,26 +121,26 @@ public class CreateTable implements Statement {
 
     @Override
     public String toString() {
-        StringBuilder sql=new StringBuilder();
+        StringBuilder sql = new StringBuilder();
         String createOps = SelectUtils.getStringList(createOptionsStrings, false, false);
 
         sql = sql.append("CREATE ").append(unlogged ? "UNLOGGED " : "").append(!"".equals(createOps) ? createOps + " " : "")
-                .append( "TABLE " ).append(ifNotExists ? "IF NOT EXISTS " : "").append( table);
+                .append("TABLE ").append(ifNotExists ? "IF NOT EXISTS " : "").append(table);
 
         if (select != null) {
-            sql .append( " AS " ).append (selectParenthesis ? "(" : "") .append( select.toString()) .append (selectParenthesis ? ")" : "");
+            sql.append(" AS ").append(selectParenthesis ? "(" : "").append(select.toString()).append(selectParenthesis ? ")" : "");
         } else {
-            sql .append( " (");
+            sql.append(" (");
 
-            sql .append( SelectUtils.getStringList(columnDefinitions, true, false));
+            sql.append(SelectUtils.getStringList(columnDefinitions, true, false));
             if (indexes != null && !indexes.isEmpty()) {
-                sql .append( ", ");
-                sql.append( PlainSelect.getStringList(indexes));
+                sql.append(", ");
+                sql.append(PlainSelect.getStringList(indexes));
             }
-            sql .append( ")");
+            sql.append(")");
             String options = SelectUtils.getStringList(tableOptionsStrings, false, false);
             if (options != null && options.length() > 0) {
-                sql .append( " ") .append( options);
+                sql.append(" ").append(options);
             }
         }
 

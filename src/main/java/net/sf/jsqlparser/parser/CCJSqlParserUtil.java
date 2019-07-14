@@ -9,12 +9,13 @@
  */
 package net.sf.jsqlparser.parser;
 
-import java.io.InputStream;
-import java.io.Reader;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.Statements;
+
+import java.io.InputStream;
+import java.io.Reader;
 
 /**
  * Toolfunctions to start and use JSqlParser.

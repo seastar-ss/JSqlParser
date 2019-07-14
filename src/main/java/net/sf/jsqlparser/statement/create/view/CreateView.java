@@ -9,12 +9,13 @@
  */
 package net.sf.jsqlparser.statement.create.view;
 
-import java.util.List;
 import net.sf.jsqlparser.schema.Table;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.StatementVisitor;
 import net.sf.jsqlparser.statement.select.Select;
 import net.sf.jsqlparser.util.SelectUtils;
+
+import java.util.List;
 
 public class CreateView implements Statement {
 
@@ -104,11 +105,11 @@ public class CreateView implements Statement {
                 sql.append("NO FORCE ");
                 break;
         }
-        
+
         if (temp != TemporaryOption.NONE) {
             sql.append(temp.name()).append(" ");
         }
-        
+
         if (isMaterialized()) {
             sql.append("MATERIALIZED ");
         }

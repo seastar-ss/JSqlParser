@@ -9,12 +9,12 @@
  */
 package net.sf.jsqlparser.statement.drop;
 
-import java.util.List;
 import net.sf.jsqlparser.schema.Table;
-
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.StatementVisitor;
 import net.sf.jsqlparser.statement.select.PlainSelect;
+
+import java.util.List;
 
 public class Drop implements Statement {
 

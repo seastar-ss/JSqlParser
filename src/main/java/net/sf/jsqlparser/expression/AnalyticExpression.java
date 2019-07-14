@@ -9,10 +9,11 @@
  */
 package net.sf.jsqlparser.expression;
 
-import java.util.List;
 import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
 import net.sf.jsqlparser.statement.select.OrderByElement;
+
+import java.util.List;
 
 /**
  * Analytic function. The name of the function is variable but the parameters following the special

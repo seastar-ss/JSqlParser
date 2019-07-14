@@ -9,9 +9,10 @@
  */
 package net.sf.jsqlparser.expression;
 
+import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
+
 import java.util.Arrays;
 import java.util.List;
-import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
 
 /**
  * A string as in 'example_string'

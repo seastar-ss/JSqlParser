@@ -9,11 +9,11 @@
  */
 package net.sf.jsqlparser.statement.select;
 
-import java.util.Iterator;
-import java.util.List;
-
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.StatementVisitor;
+
+import java.util.Iterator;
+import java.util.List;
 
 public class Select implements Statement {
 
@@ -38,7 +38,7 @@ public class Select implements Statement {
         StringBuilder retval = new StringBuilder();
         if (withItemsList != null && !withItemsList.isEmpty()) {
             retval.append("WITH ");
-            for (Iterator<WithItem> iter = withItemsList.iterator(); iter.hasNext();) {
+            for (Iterator<WithItem> iter = withItemsList.iterator(); iter.hasNext(); ) {
                 WithItem withItem = iter.next();
                 retval.append(withItem);
                 if (iter.hasNext()) {

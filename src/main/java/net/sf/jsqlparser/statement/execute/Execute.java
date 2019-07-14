@@ -9,11 +9,12 @@
  */
 package net.sf.jsqlparser.statement.execute;
 
-import java.util.List;
 import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.StatementVisitor;
 import net.sf.jsqlparser.util.SelectUtils;
+
+import java.util.List;
 
 public class Execute implements Statement {
 

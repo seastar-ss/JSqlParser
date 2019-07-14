@@ -9,21 +9,15 @@
  */
 package net.sf.jsqlparser.util.deparser;
 
-import java.util.Iterator;
-
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.ExpressionVisitor;
 import net.sf.jsqlparser.expression.ExpressionVisitorAdapter;
 import net.sf.jsqlparser.schema.Column;
-import net.sf.jsqlparser.statement.select.Join;
+import net.sf.jsqlparser.statement.select.*;
 import net.sf.jsqlparser.statement.update.Update;
-import net.sf.jsqlparser.statement.select.Select;
-import net.sf.jsqlparser.statement.select.SelectVisitor;
-import net.sf.jsqlparser.statement.select.OrderByVisitor;
-import net.sf.jsqlparser.statement.select.OrderByElement;
-import net.sf.jsqlparser.statement.select.SelectExpressionItem;
-import net.sf.jsqlparser.statement.select.SelectVisitorAdapter;
 import net.sf.jsqlparser.util.SelectUtils;
+
+import java.util.Iterator;
 
 public class UpdateDeParser implements OrderByVisitor {
 
@@ -115,7 +109,7 @@ public class UpdateDeParser implements OrderByVisitor {
         } else if (update.getReturningExpressionList() != null) {
             buffer.append(" RETURNING ");
             for (Iterator<SelectExpressionItem> iter = update.getReturningExpressionList().
-                    iterator(); iter.hasNext();) {
+                    iterator(); iter.hasNext(); ) {
                 buffer.append(iter.next().toString());
                 if (iter.hasNext()) {
                     buffer.append(", ");

@@ -9,13 +9,14 @@
  */
 package net.sf.jsqlparser.statement.drop;
 
-import java.io.StringReader;
-
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.parser.CCJSqlParserManager;
-import static net.sf.jsqlparser.test.TestUtils.*;
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+
+import java.io.StringReader;
+
+import static net.sf.jsqlparser.test.TestUtils.assertSqlCanBeParsedAndDeparsed;
+import static org.junit.Assert.assertEquals;
 
 public class DropTest {
 
@@ -48,17 +49,17 @@ public class DropTest {
     public void testDropIfExists() throws JSQLParserException {
         assertSqlCanBeParsedAndDeparsed("DROP TABLE IF EXISTS my_table");
     }
-    
+
     @Test
     public void testDropRestrictIssue510() throws JSQLParserException {
         assertSqlCanBeParsedAndDeparsed("DROP TABLE TABLE2 RESTRICT");
     }
-    
+
     @Test
     public void testDropViewIssue545() throws JSQLParserException {
         assertSqlCanBeParsedAndDeparsed("DROP VIEW myview");
     }
-    
+
     @Test
     public void testDropViewIssue545_2() throws JSQLParserException {
         assertSqlCanBeParsedAndDeparsed("DROP VIEW IF EXISTS myview");

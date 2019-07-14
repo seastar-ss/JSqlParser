@@ -9,14 +9,13 @@
  */
 package net.sf.jsqlparser.statement.delete;
 
-import static net.sf.jsqlparser.test.TestUtils.assertSqlCanBeParsedAndDeparsed;
+import net.sf.jsqlparser.JSQLParserException;
+import net.sf.jsqlparser.parser.CCJSqlParserManager;
+import org.junit.Test;
 
 import java.io.StringReader;
 
-import org.junit.Test;
-
-import net.sf.jsqlparser.JSQLParserException;
-import net.sf.jsqlparser.parser.CCJSqlParserManager;
+import static net.sf.jsqlparser.test.TestUtils.assertSqlCanBeParsedAndDeparsed;
 import static org.junit.Assert.assertEquals;
 
 public class DeleteTest {

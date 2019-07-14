@@ -9,11 +9,11 @@
  */
 package net.sf.jsqlparser.statement.select;
 
+import net.sf.jsqlparser.expression.Alias;
 import net.sf.jsqlparser.schema.Column;
+import net.sf.jsqlparser.util.SelectUtils;
 
 import java.util.List;
-import net.sf.jsqlparser.expression.Alias;
-import net.sf.jsqlparser.util.SelectUtils;
 
 public class Pivot {
 
@@ -76,8 +76,8 @@ public class Pivot {
         return "PIVOT ("
                 + PlainSelect.getStringList(functionItems)
                 + " FOR " + SelectUtils.
-                        getStringList(forColumns, true, forColumns != null && forColumns.size() > 1)
+                getStringList(forColumns, true, forColumns != null && forColumns.size() > 1)
                 + " IN " + SelectUtils.getStringList(getInItems(), true, true) + ")"
-                + (alias!=null?alias.toString():"");
+                + (alias != null ? alias.toString() : "");
     }
 }

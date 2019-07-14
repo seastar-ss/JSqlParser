@@ -9,9 +9,10 @@
  */
 package net.sf.jsqlparser.statement.create.table;
 
-import java.util.List;
 import net.sf.jsqlparser.schema.Table;
 import net.sf.jsqlparser.util.SelectUtils;
+
+import java.util.List;
 
 public class ForeignKeyIndex extends NamedConstraint {
 

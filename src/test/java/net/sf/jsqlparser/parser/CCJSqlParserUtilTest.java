@@ -9,11 +9,6 @@
  */
 package net.sf.jsqlparser.parser;
 
-import java.io.ByteArrayInputStream;
-import java.io.StringReader;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.LongValue;
@@ -23,12 +18,17 @@ import net.sf.jsqlparser.expression.operators.arithmetic.Multiplication;
 import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.Statements;
-import org.junit.After;
-import org.junit.AfterClass;
-import static org.junit.Assert.*;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import net.sf.jsqlparser.test.TestUtils;
+import org.junit.*;
+
+import java.io.ByteArrayInputStream;
+import java.io.StringReader;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class CCJSqlParserUtilTest {
 
@@ -148,14 +148,14 @@ public class CCJSqlParserUtilTest {
     public void testParseStatementsIssue691() throws Exception {
         Statements result = CCJSqlParserUtil.parseStatements(
                 "select * from dual;\n"
-                + "\n"
-                + "select\n"
-                + "*\n"
-                + "from\n"
-                + "dual;\n"
-                + "\n"
-                + "select *\n"
-                + "from dual;");
+                        + "\n"
+                        + "select\n"
+                        + "*\n"
+                        + "from\n"
+                        + "dual;\n"
+                        + "\n"
+                        + "select *\n"
+                        + "from dual;");
         assertEquals("SELECT * FROM dual;\n"
                 + "SELECT * FROM dual;\n"
                 + "SELECT * FROM dual;\n", result.toString());
@@ -197,7 +197,7 @@ public class CCJSqlParserUtilTest {
     public void testParseStatementsIssue691_2() throws Exception {
         Statements result = CCJSqlParserUtil.parseStatements(
                 "select * from dual;\n"
-                + "---test");
+                        + "---test");
         assertEquals("SELECT * FROM dual;\n", result.toString());
     }
 
@@ -209,8 +209,8 @@ public class CCJSqlParserUtilTest {
                 + "  PRIMARY KEY (`id`),\n"
                 + "  UNIQUE KEY `uk_another_column_id` (`another_column_id`)\n"
                 + ")");
-        assertEquals("CREATE TABLE `table_name` (`id` bigint (20) NOT NULL AUTO_INCREMENT, `another_column_id` "
+        assertEquals(TestUtils.buildSqlString("CREATE TABLE `table_name` (`id` bigint (20) NOT NULL AUTO_INCREMENT, `another_column_id` "
                 + "bigint (20) NOT NULL COMMENT 'column id as sent by SYSTEM', PRIMARY KEY (`id`), UNIQUE KEY `uk_another_column_id` "
-                + "(`another_column_id`));\n", result.toString());
+                + "(`another_column_id`));\n", true), TestUtils.buildSqlString(result.toString(), true));
     }
 }

@@ -9,22 +9,15 @@
  */
 package net.sf.jsqlparser.util;
 
-import java.util.ArrayList;
-import java.util.List;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 import net.sf.jsqlparser.schema.Table;
-import net.sf.jsqlparser.statement.select.AllColumns;
-import net.sf.jsqlparser.statement.select.Join;
-import net.sf.jsqlparser.statement.select.PlainSelect;
-import net.sf.jsqlparser.statement.select.Select;
-import net.sf.jsqlparser.statement.select.SelectExpressionItem;
-import net.sf.jsqlparser.statement.select.SelectItem;
-import net.sf.jsqlparser.statement.select.SelectVisitor;
-import net.sf.jsqlparser.statement.select.SetOperationList;
-import net.sf.jsqlparser.statement.select.WithItem;
+import net.sf.jsqlparser.statement.select.*;
 import net.sf.jsqlparser.statement.values.ValuesStatement;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public final class SelectUtils {
 
@@ -160,8 +153,8 @@ public final class SelectUtils {
      * List the toString out put of the objects in the List that can be comma separated. If the List
      * is null or empty an empty string is returned.
      *
-     * @param list list of objects with toString methods
-     * @param useComma true if the list has to be comma separated
+     * @param list        list of objects with toString methods
+     * @param useComma    true if the list has to be comma separated
      * @param useBrackets true if the list has to be enclosed in brackets
      * @return comma separated list of the elements in the list
      */

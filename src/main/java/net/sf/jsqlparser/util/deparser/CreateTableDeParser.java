@@ -9,13 +9,13 @@
  */
 package net.sf.jsqlparser.util.deparser;
 
-import java.util.Iterator;
-
 import net.sf.jsqlparser.statement.create.table.ColumnDefinition;
 import net.sf.jsqlparser.statement.create.table.CreateTable;
 import net.sf.jsqlparser.statement.create.table.Index;
 import net.sf.jsqlparser.statement.select.Select;
 import net.sf.jsqlparser.util.SelectUtils;
+
+import java.util.Iterator;
 
 
 public class CreateTableDeParser {
@@ -63,7 +63,7 @@ public class CreateTableDeParser {
             if (createTable.getColumnDefinitions() != null) {
                 buffer.append(" (");
                 for (Iterator<ColumnDefinition> iter = createTable.getColumnDefinitions().iterator(); iter.
-                        hasNext();) {
+                        hasNext(); ) {
                     ColumnDefinition columnDefinition = iter.next();
                     buffer.append(columnDefinition.getColumnName());
                     buffer.append(" ");
@@ -81,7 +81,7 @@ public class CreateTableDeParser {
                 }
 
                 if (createTable.getIndexes() != null) {
-                    for (Iterator<Index> iter = createTable.getIndexes().iterator(); iter.hasNext();) {
+                    for (Iterator<Index> iter = createTable.getIndexes().iterator(); iter.hasNext(); ) {
                         buffer.append(", ");
                         Index index = iter.next();
                         buffer.append(index.toString());

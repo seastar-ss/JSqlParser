@@ -269,7 +269,7 @@ public class SimpleCharStream {
      * Constructor.
      */
     public SimpleCharStream(Provider dstream, int startline,
-            int startcolumn, int buffersize) {
+                            int startcolumn, int buffersize) {
         inputStream = dstream;
         line = startline;
         column = startcolumn - 1;
@@ -284,7 +284,7 @@ public class SimpleCharStream {
      * Constructor.
      */
     public SimpleCharStream(Provider dstream, int startline,
-            int startcolumn) {
+                            int startcolumn) {
         this(dstream, startline, startcolumn, 4096);
     }
 
@@ -299,7 +299,7 @@ public class SimpleCharStream {
      * Reinitialise.
      */
     public void ReInit(Provider dstream, int startline,
-            int startcolumn, int buffersize) {
+                       int startcolumn, int buffersize) {
         inputStream = dstream;
         line = startline;
         column = startcolumn - 1;
@@ -319,7 +319,7 @@ public class SimpleCharStream {
      * Reinitialise.
      */
     public void ReInit(Provider dstream, int startline,
-            int startcolumn) {
+                       int startcolumn) {
         ReInit(dstream, startline, startcolumn, 4096);
     }
 
@@ -385,7 +385,7 @@ public class SimpleCharStream {
         int i = 0;
         int j = 0;
         int k = 0;
-        int nextColDiff = 0; 
+        int nextColDiff = 0;
         int columnDiff = 0;
 
         while (i < len && bufline[j = start % bufsize] == bufline[k = ++start % bufsize]) {

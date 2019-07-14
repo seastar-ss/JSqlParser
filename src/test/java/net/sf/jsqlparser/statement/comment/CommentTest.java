@@ -9,14 +9,16 @@
  */
 package net.sf.jsqlparser.statement.comment;
 
-import java.io.StringReader;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.schema.Table;
+import org.junit.Test;
+
+import java.io.StringReader;
+
 import static net.sf.jsqlparser.test.TestUtils.assertSqlCanBeParsedAndDeparsed;
 import static org.junit.Assert.assertEquals;
-import org.junit.Test;
 
 public class CommentTest {
 
