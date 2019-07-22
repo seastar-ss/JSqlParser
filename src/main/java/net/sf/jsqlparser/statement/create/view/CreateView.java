@@ -10,6 +10,7 @@
 package net.sf.jsqlparser.statement.create.view;
 
 import java.util.List;
+
 import net.sf.jsqlparser.schema.Table;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.StatementVisitor;
@@ -104,11 +105,11 @@ public class CreateView implements Statement {
                 sql.append("NO FORCE ");
                 break;
         }
-        
+
         if (temp != TemporaryOption.NONE) {
             sql.append(temp.name()).append(" ");
         }
-        
+
         if (isMaterialized()) {
             sql.append("MATERIALIZED ");
         }

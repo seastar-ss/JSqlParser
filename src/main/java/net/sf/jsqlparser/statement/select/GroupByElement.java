@@ -11,6 +11,7 @@ package net.sf.jsqlparser.statement.select;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 

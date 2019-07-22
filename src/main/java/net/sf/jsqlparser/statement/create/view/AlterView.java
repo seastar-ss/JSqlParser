@@ -10,6 +10,7 @@
 package net.sf.jsqlparser.statement.create.view;
 
 import java.util.List;
+
 import net.sf.jsqlparser.schema.Table;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.StatementVisitor;

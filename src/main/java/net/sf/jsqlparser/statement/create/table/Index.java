@@ -25,31 +25,20 @@ public class Index {
         return columnsNames;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    /**
-     * In postgresql, the index type (Btree, GIST, etc.) is indicated
-     * with a USING clause.
-     * Please note that:
-     *  Oracle - the type might be BITMAP, indicating a bitmap kind of index
-     *  MySQL - the type might be FULLTEXT or SPATIAL
-    */
-    public void setUsing(String string) {
-        using = string;
-    }
-
     public void setColumnsNames(List<String> list) {
         columnsNames = list;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void setName(String string) {
         name = string;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public void setType(String string) {
@@ -58,6 +47,17 @@ public class Index {
 
     public String getUsing() {
         return using;
+    }
+
+    /**
+     * In postgresql, the index type (Btree, GIST, etc.) is indicated
+     * with a USING clause.
+     * Please note that:
+     * Oracle - the type might be BITMAP, indicating a bitmap kind of index
+     * MySQL - the type might be FULLTEXT or SPATIAL
+     */
+    public void setUsing(String string) {
+        using = string;
     }
 
     public List<String> getIndexSpec() {

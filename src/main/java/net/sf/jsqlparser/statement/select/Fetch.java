@@ -30,20 +30,20 @@ public class Fetch {
         return fetchJdbcParameter;
     }
 
-    public String getFetchParam() {
-        return fetchParam;
-    }
-
-    public boolean isFetchParamFirst() {
-        return isFetchParamFirst;
-    }
-
     public void setFetchJdbcParameter(JdbcParameter jdbc) {
         fetchJdbcParameter = jdbc;
     }
 
+    public String getFetchParam() {
+        return fetchParam;
+    }
+
     public void setFetchParam(String s) {
         this.fetchParam = s;
+    }
+
+    public boolean isFetchParamFirst() {
+        return isFetchParamFirst;
     }
 
     public void setFetchParamFirst(boolean b) {
@@ -52,8 +52,8 @@ public class Fetch {
 
     @Override
     public String toString() {
-        return " FETCH " + (isFetchParamFirst ? "FIRST" : "NEXT") + " " 
-                + (fetchJdbcParameter!=null ? fetchJdbcParameter.toString() : 
-                    Long.toString(rowCount)) + " " + fetchParam + " ONLY";
+        return " FETCH " + (isFetchParamFirst ? "FIRST" : "NEXT") + " "
+                + (fetchJdbcParameter != null ? fetchJdbcParameter.toString() :
+                Long.toString(rowCount)) + " " + fetchParam + " ONLY";
     }
 }

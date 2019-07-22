@@ -34,85 +34,85 @@ public class Upsert implements Statement {
 
     @Override
     public void accept(StatementVisitor statementVisitor) {
-        statementVisitor.visit(this); 
+        statementVisitor.visit(this);
     }
-    
-    public void setTable(Table name) {
-        table = name;
-    }
-    
+
     public Table getTable() {
         return table;
     }
-    
-    public void setColumns(List<Column> list) {
-        columns = list;
+
+    public void setTable(Table name) {
+        table = name;
     }
-    
+
     public List<Column> getColumns() {
         return columns;
     }
-    
-    public void setItemsList(ItemsList list) {
-        itemsList = list;
+
+    public void setColumns(List<Column> list) {
+        columns = list;
     }
-    
+
     public ItemsList getItemsList() {
         return itemsList;
     }
-    
-    public void setUseValues(boolean useValues) {
-        this.useValues = useValues;
+
+    public void setItemsList(ItemsList list) {
+        itemsList = list;
     }
-    
+
     public boolean isUseValues() {
         return useValues;
     }
-    
-    public void setSelect(Select select) {
-        this.select = select;
+
+    public void setUseValues(boolean useValues) {
+        this.useValues = useValues;
     }
-    
+
     public Select getSelect() {
         return select;
     }
-    
-    public void setUseSelectBrackets(boolean useSelectBrackets) {
-        this.useSelectBrackets = useSelectBrackets;
+
+    public void setSelect(Select select) {
+        this.select = select;
     }
-    
+
     public boolean isUseSelectBrackets() {
         return useSelectBrackets;
     }
-    
-    public void setUseDuplicate(boolean useDuplicate) {
-        this.useDuplicate = useDuplicate;
+
+    public void setUseSelectBrackets(boolean useSelectBrackets) {
+        this.useSelectBrackets = useSelectBrackets;
     }
-    
+
     public boolean isUseDuplicate() {
         return useDuplicate;
     }
-    
-    public void setDuplicateUpdateColumns(List<Column> duplicateUpdateColumns) {
-        this.duplicateUpdateColumns = duplicateUpdateColumns;
+
+    public void setUseDuplicate(boolean useDuplicate) {
+        this.useDuplicate = useDuplicate;
     }
-    
+
     public List<Column> getDuplicateUpdateColumns() {
         return duplicateUpdateColumns;
     }
-    
-    public void setDuplicateUpdateExpressionList(List<Expression> duplicateUpdateExpressionList) {
-        this.duplicateUpdateExpressionList = duplicateUpdateExpressionList;
+
+    public void setDuplicateUpdateColumns(List<Column> duplicateUpdateColumns) {
+        this.duplicateUpdateColumns = duplicateUpdateColumns;
     }
-    
+
     public List<Expression> getDuplicateUpdateExpressionList() {
         return duplicateUpdateExpressionList;
     }
-    
+
+    public void setDuplicateUpdateExpressionList(List<Expression> duplicateUpdateExpressionList) {
+        this.duplicateUpdateExpressionList = duplicateUpdateExpressionList;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        
+
         sb.append("UPSERT INTO ");
         sb.append(table).append(" ");
         if (columns != null) {
@@ -121,7 +121,7 @@ public class Upsert implements Statement {
         if (useValues) {
             sb.append("VALUES ");
         }
-        
+
         if (itemsList != null) {
             sb.append(itemsList);
         } else {
@@ -146,7 +146,7 @@ public class Upsert implements Statement {
                 sb.append(duplicateUpdateExpressionList.get(i));
             }
         }
-        
+
         return sb.toString();
     }
 

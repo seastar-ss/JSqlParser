@@ -28,7 +28,7 @@ import net.sf.jsqlparser.statement.select.OrderByElement;
 import net.sf.jsqlparser.statement.select.Limit;
 import net.sf.jsqlparser.statement.select.SelectExpressionItem;
 
-public class Update implements Statement ,HasWhere,HasMainTable, net.sf.jsqlparser.statement.common.HasLimit,HasOrderBy {
+public class Update implements Statement, HasWhere, HasMainTable, net.sf.jsqlparser.statement.common.HasLimit, HasOrderBy {
 
     private List<Table> tables;
     private Expression where;
@@ -53,12 +53,12 @@ public class Update implements Statement ,HasWhere,HasMainTable, net.sf.jsqlpars
         return tables;
     }
 
-    public Expression getWhere() {
-        return where;
-    }
-
     public void setTables(List<Table> list) {
         tables = list;
+    }
+
+    public Expression getWhere() {
+        return where;
     }
 
     public void setWhere(Expression expression) {
@@ -69,12 +69,12 @@ public class Update implements Statement ,HasWhere,HasMainTable, net.sf.jsqlpars
         return columns;
     }
 
-    public List<Expression> getExpressions() {
-        return expressions;
-    }
-
     public void setColumns(List<Column> list) {
         columns = list;
+    }
+
+    public List<Expression> getExpressions() {
+        return expressions;
     }
 
     public void setExpressions(List<Expression> list) {
@@ -121,22 +121,22 @@ public class Update implements Statement ,HasWhere,HasMainTable, net.sf.jsqlpars
         this.useSelect = useSelect;
     }
 
+    public List<OrderByElement> getOrderByElements() {
+        return orderByElements;
+    }
+
     public void setOrderByElements(List<OrderByElement> orderByElements) {
         this.orderByElements = orderByElements;
     }
 
     @Override
-    public void setLimit(Limit limit) {
-        this.limit = limit;
-    }
-
-    public List<OrderByElement> getOrderByElements() {
-        return orderByElements;
+    public Limit getLimit() {
+        return limit;
     }
 
     @Override
-    public Limit getLimit() {
-        return limit;
+    public void setLimit(Limit limit) {
+        this.limit = limit;
     }
 
     public boolean isReturningAllColumns() {
@@ -221,7 +221,7 @@ public class Update implements Statement ,HasWhere,HasMainTable, net.sf.jsqlpars
 
     @Override
     public Table getTable() {
-        if(tables!=null && tables.size()==1){
+        if (tables != null && tables.size() == 1) {
             return tables.get(0);
         }
         return null;

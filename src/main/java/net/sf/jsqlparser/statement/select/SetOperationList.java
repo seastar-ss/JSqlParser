@@ -30,6 +30,10 @@ public class SetOperationList implements SelectBody {
         return orderByElements;
     }
 
+    public void setOrderByElements(List<OrderByElement> orderByElements) {
+        this.orderByElements = orderByElements;
+    }
+
     public List<SelectBody> getSelects() {
         return selects;
     }
@@ -44,10 +48,6 @@ public class SetOperationList implements SelectBody {
 
     public void setBrackets(List<Boolean> brackets) {
         this.brackets = brackets;
-    }
-
-    public void setOrderByElements(List<OrderByElement> orderByElements) {
-        this.orderByElements = orderByElements;
     }
 
     public void setBracketsOpsAndSelects(List<Boolean> brackets, List<SelectBody> select, List<SetOperation> ops) {

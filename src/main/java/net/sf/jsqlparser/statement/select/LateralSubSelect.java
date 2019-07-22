@@ -17,12 +17,12 @@ public class LateralSubSelect implements FromItem {
     private Alias alias;
     private Pivot pivot;
 
-    public void setSubSelect(SubSelect subSelect) {
-        this.subSelect = subSelect;
-    }
-
     public SubSelect getSubSelect() {
         return subSelect;
+    }
+
+    public void setSubSelect(SubSelect subSelect) {
+        this.subSelect = subSelect;
     }
 
     @Override

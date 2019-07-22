@@ -57,7 +57,7 @@ public class CreateIndex implements Statement {
         buffer.append(" ON ");
         buffer.append(table.getFullyQualifiedName());
 
-        if (index.getUsing() != null){
+        if (index.getUsing() != null) {
             buffer.append(" USING ");
             buffer.append(index.getUsing());
         }
@@ -65,7 +65,7 @@ public class CreateIndex implements Statement {
         if (index.getColumnsNames() != null) {
             buffer.append(" (");
 
-            for (Iterator iter = index.getColumnsNames().iterator(); iter.hasNext();) {
+            for (Iterator iter = index.getColumnsNames().iterator(); iter.hasNext(); ) {
                 String columnName = (String) iter.next();
 
                 buffer.append(columnName);

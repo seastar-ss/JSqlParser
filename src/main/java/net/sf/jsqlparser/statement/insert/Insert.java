@@ -22,7 +22,7 @@ import net.sf.jsqlparser.statement.common.HasOrderBy;
 import net.sf.jsqlparser.statement.common.HasWhere;
 import net.sf.jsqlparser.statement.select.*;
 
-public class Insert implements Statement, net.sf.jsqlparser.statement.common.HasMainTable,HasLimit,HasOrderBy,HasWhere {
+public class Insert implements Statement, net.sf.jsqlparser.statement.common.HasMainTable, HasLimit, HasOrderBy, HasWhere {
 
     private Table table;
     private List<Column> columns;
@@ -39,7 +39,7 @@ public class Insert implements Statement, net.sf.jsqlparser.statement.common.Has
     private boolean returningAllColumns = false;
 
     private List<SelectExpressionItem> returningExpressionList = null;
-    
+
     private boolean useSet = false;
     private List<Column> setColumns;
     private List<Expression> setExpressionList;
@@ -159,29 +159,29 @@ public class Insert implements Statement, net.sf.jsqlparser.statement.common.Has
     public void setModifierIgnore(boolean modifierIgnore) {
         this.modifierIgnore = modifierIgnore;
     }
-    
-    public void setUseSet(boolean useSet) {
-        this.useSet = useSet;
-    }
-    
+
     public boolean isUseSet() {
         return useSet;
     }
-    
-    public void setSetColumns(List<Column> setColumns) {
-        this.setColumns = setColumns;
+
+    public void setUseSet(boolean useSet) {
+        this.useSet = useSet;
     }
-    
+
     public List<Column> getSetColumns() {
         return setColumns;
     }
-    
-    public void setSetExpressionList(List<Expression> setExpressionList) {
-        this.setExpressionList = setExpressionList;
+
+    public void setSetColumns(List<Column> setColumns) {
+        this.setColumns = setColumns;
     }
-    
+
     public List<Expression> getSetExpressionList() {
         return setExpressionList;
+    }
+
+    public void setSetExpressionList(List<Expression> setExpressionList) {
+        this.setExpressionList = setExpressionList;
     }
 
     @Override
@@ -218,7 +218,7 @@ public class Insert implements Statement, net.sf.jsqlparser.statement.common.Has
                 sql.append(")");
             }
         }
-        
+
         if (useSet) {
             sql.append("SET ");
             for (int i = 0; i < getSetColumns().size(); i++) {
@@ -252,13 +252,13 @@ public class Insert implements Statement, net.sf.jsqlparser.statement.common.Has
     }
 
     @Override
-    public void setLimit(Limit limit) {
-
+    public Limit getLimit() {
+        return null;
     }
 
     @Override
-    public Limit getLimit() {
-        return null;
+    public void setLimit(Limit limit) {
+
     }
 
     @Override

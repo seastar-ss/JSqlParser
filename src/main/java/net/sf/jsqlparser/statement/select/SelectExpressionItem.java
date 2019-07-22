@@ -29,12 +29,12 @@ public class SelectExpressionItem extends ASTNodeAccessImpl implements SelectIte
         return alias;
     }
 
-    public Expression getExpression() {
-        return expression;
-    }
-
     public void setAlias(Alias alias) {
         this.alias = alias;
+    }
+
+    public Expression getExpression() {
+        return expression;
     }
 
     public void setExpression(Expression expression) {

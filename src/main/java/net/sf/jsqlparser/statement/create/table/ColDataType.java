@@ -25,12 +25,12 @@ public class ColDataType {
         return argumentsStringList;
     }
 
-    public String getDataType() {
-        return dataType;
-    }
-
     public void setArgumentsStringList(List<String> list) {
         argumentsStringList = list;
+    }
+
+    public String getDataType() {
+        return dataType;
     }
 
     public void setDataType(String string) {
@@ -65,7 +65,7 @@ public class ColDataType {
         }
         return dataType
                 + (argumentsStringList != null ? " " + PlainSelect.
-                                getStringList(argumentsStringList, true, true) : "")
+                getStringList(argumentsStringList, true, true) : "")
                 + arraySpec.toString()
                 + (characterSet != null ? " CHARACTER SET " + characterSet : "");
     }

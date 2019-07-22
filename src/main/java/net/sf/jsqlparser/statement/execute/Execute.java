@@ -10,6 +10,7 @@
 package net.sf.jsqlparser.statement.execute;
 
 import java.util.List;
+
 import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.StatementVisitor;
@@ -26,10 +27,6 @@ public class Execute implements Statement {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public void setName(List<String> names) {
         for (String item : names) {
             if (this.name != null) {
@@ -38,6 +35,10 @@ public class Execute implements Statement {
                 this.name = item;
             }
         }
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public ExpressionList getExprList() {

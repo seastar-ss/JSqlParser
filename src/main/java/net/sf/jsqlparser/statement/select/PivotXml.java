@@ -47,7 +47,7 @@ public class PivotXml extends Pivot {
         return "PIVOT XML ("
                 + PlainSelect.getStringList(getFunctionItems())
                 + " FOR " + PlainSelect.
-                        getStringList(forColumns, true, forColumns != null && forColumns.size() > 1)
+                getStringList(forColumns, true, forColumns != null && forColumns.size() > 1)
                 + " IN (" + in + "))";
     }
 

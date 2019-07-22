@@ -10,6 +10,7 @@
 package net.sf.jsqlparser.statement.create.table;
 
 import java.util.List;
+
 import net.sf.jsqlparser.schema.Table;
 import net.sf.jsqlparser.statement.select.PlainSelect;
 
@@ -63,7 +64,7 @@ public class ForeignKeyIndex extends NamedConstraint {
         }
         return super.toString()
                 + " REFERENCES " + table + PlainSelect.
-                        getStringList(getReferencedColumnNames(), true, true)
+                getStringList(getReferencedColumnNames(), true, true)
                 + referenceOptions;
     }
 }

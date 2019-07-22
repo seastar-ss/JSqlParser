@@ -23,12 +23,12 @@ public class Offset {
         return offset;
     }
 
-    public String getOffsetParam() {
-        return offsetParam;
-    }
-
     public void setOffset(long l) {
         offset = l;
+    }
+
+    public String getOffsetParam() {
+        return offsetParam;
     }
 
     public void setOffsetParam(String s) {
@@ -39,18 +39,18 @@ public class Offset {
         return offsetJdbcParameter;
     }
 
-    public void setOffsetJdbcParameter(JdbcParameter jdbc) {
+    public void setOffsetJdbcParameter(JdbcNamedParameter jdbc) {
         offsetJdbcParameter = jdbc;
     }
-    
-    public void setOffsetJdbcParameter(JdbcNamedParameter jdbc) {
+
+    public void setOffsetJdbcParameter(JdbcParameter jdbc) {
         offsetJdbcParameter = jdbc;
     }
 
     @Override
     public String toString() {
         return " OFFSET "
-                + (offsetJdbcParameter!=null ? offsetJdbcParameter.toString() : offset)
+                + (offsetJdbcParameter != null ? offsetJdbcParameter.toString() : offset)
                 + (offsetParam != null ? " " + offsetParam : "");
     }
 }

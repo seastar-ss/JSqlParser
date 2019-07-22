@@ -24,7 +24,7 @@ import net.sf.jsqlparser.statement.select.PlainSelect;
 
 import java.util.List;
 
-public class Delete implements Statement,HasWhere,HasMainTable,HasLimit,HasOrderBy {
+public class Delete implements Statement, HasWhere, HasMainTable, HasLimit, HasOrderBy {
 
     private Table table;
     private List<Table> tables;
@@ -50,12 +50,12 @@ public class Delete implements Statement,HasWhere,HasMainTable,HasLimit,HasOrder
         return table;
     }
 
-    public Expression getWhere() {
-        return where;
-    }
-
     public void setTable(Table name) {
         table = name;
+    }
+
+    public Expression getWhere() {
+        return where;
     }
 
     public void setWhere(Expression expression) {

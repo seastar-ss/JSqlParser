@@ -11,6 +11,7 @@ package net.sf.jsqlparser.statement;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import net.sf.jsqlparser.expression.Expression;
 
 public final class SetStatement implements Statement {
@@ -41,25 +42,25 @@ public final class SetStatement implements Statement {
         return isUseEqual(0);
     }
 
+    public SetStatement setUseEqual(boolean useEqual) {
+        return setUseEqual(0, useEqual);
+    }
+
     public SetStatement setUseEqual(int idx, boolean useEqual) {
         values.get(idx).useEqual = useEqual;
         return this;
-    }
-
-    public SetStatement setUseEqual(boolean useEqual) {
-        return setUseEqual(0, useEqual);
     }
 
     public String getName() {
         return getName(0);
     }
 
-    public String getName(int idx) {
-        return values.get(idx).name;
-    }
-
     public void setName(String name) {
         setName(0, name);
+    }
+
+    public String getName(int idx) {
+        return values.get(idx).name;
     }
 
     public void setName(int idx, String name) {
@@ -74,12 +75,12 @@ public final class SetStatement implements Statement {
         return getExpression(0);
     }
 
-    public void setExpression(int idx, Expression expression) {
-        values.get(idx).expression = expression;
-    }
-
     public void setExpression(Expression expression) {
         setExpression(0, expression);
+    }
+
+    public void setExpression(int idx, Expression expression) {
+        values.get(idx).expression = expression;
     }
 
     private String toString(NameExpr ne) {

@@ -53,12 +53,12 @@ public class Replace implements Statement {
         return columns;
     }
 
-    public ItemsList getItemsList() {
-        return itemsList;
-    }
-
     public void setColumns(List<Column> list) {
         columns = list;
+    }
+
+    public ItemsList getItemsList() {
+        return itemsList;
     }
 
     public void setItemsList(ItemsList list) {

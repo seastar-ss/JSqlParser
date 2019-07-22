@@ -13,11 +13,6 @@ import net.sf.jsqlparser.expression.JdbcParameter;
 
 public class First {
 
-    public enum Keyword {
-        FIRST,
-        LIMIT
-    }
-
     private Keyword keyword;
     private Long rowCount;
     private JdbcParameter jdbcParameter;
@@ -68,5 +63,10 @@ public class First {
         }
 
         return result;
+    }
+
+    public enum Keyword {
+        FIRST,
+        LIMIT
     }
 }

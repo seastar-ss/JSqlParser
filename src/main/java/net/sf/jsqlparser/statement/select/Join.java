@@ -215,8 +215,8 @@ public class Join extends ASTNodeAccessImpl {
             ret
                     .append("JOIN ")
                     .append(rightItem)
-                    .append(((joinWindow != null) ? " WITHIN " + joinWindow : ""))
-                    .append(((onExpression != null) ? " ON " + onExpression : ""))
+                    .append((joinWindow != null) ? " WITHIN " + joinWindow : "")
+                    .append((onExpression != null) ? " ON " + onExpression : "")
                     .append(PlainSelect.getFormatedList(usingColumns, "USING", true, true))
                     .toString();
         }

@@ -10,6 +10,7 @@
 package net.sf.jsqlparser.statement.drop;
 
 import java.util.List;
+
 import net.sf.jsqlparser.schema.Table;
 
 import net.sf.jsqlparser.statement.Statement;
@@ -32,20 +33,20 @@ public class Drop implements Statement {
         return name;
     }
 
-    public List<String> getParameters() {
-        return parameters;
-    }
-
-    public String getType() {
-        return type;
-    }
-
     public void setName(Table string) {
         name = string;
     }
 
+    public List<String> getParameters() {
+        return parameters;
+    }
+
     public void setParameters(List<String> list) {
         parameters = list;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public void setType(String string) {

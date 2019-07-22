@@ -10,6 +10,7 @@
 package net.sf.jsqlparser.statement.select;
 
 import java.util.List;
+
 import net.sf.jsqlparser.expression.Alias;
 
 public class SubJoin implements FromItem {

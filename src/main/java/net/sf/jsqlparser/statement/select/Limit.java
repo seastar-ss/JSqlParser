@@ -23,12 +23,12 @@ public class Limit extends ASTNodeAccessImpl {
         return offset;
     }
 
-    public Expression getRowCount() {
-        return rowCount;
-    }
-
     public void setOffset(Expression l) {
         offset = l;
+    }
+
+    public Expression getRowCount() {
+        return rowCount;
     }
 
     public void setRowCount(Expression l) {
@@ -55,13 +55,13 @@ public class Limit extends ASTNodeAccessImpl {
     public String toString() {
         StringBuilder retVal = new StringBuilder(" LIMIT ");
         if (limitNull) {
-            retVal .append( "NULL");
+            retVal.append("NULL");
         } else {
             if (null != offset) {
-                retVal .append( offset ).append( ", ");
+                retVal.append(offset).append(", ");
             }
             if (null != rowCount) {
-                retVal .append( rowCount);
+                retVal.append(rowCount);
             }
         }
 

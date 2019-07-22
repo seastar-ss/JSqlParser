@@ -13,12 +13,6 @@ import net.sf.jsqlparser.expression.Expression;
 
 public class OrderByElement {
 
-    public enum NullOrdering {
-
-        NULLS_FIRST,
-        NULLS_LAST
-    }
-
     private Expression expression;
     private boolean asc = true;
     private NullOrdering nullOrdering;
@@ -26,6 +20,10 @@ public class OrderByElement {
 
     public boolean isAsc() {
         return asc;
+    }
+
+    public void setAsc(boolean b) {
+        asc = b;
     }
 
     public NullOrdering getNullOrdering() {
@@ -36,16 +34,12 @@ public class OrderByElement {
         this.nullOrdering = nullOrdering;
     }
 
-    public void setAsc(boolean b) {
-        asc = b;
+    public boolean isAscDescPresent() {
+        return ascDesc;
     }
 
     public void setAscDescPresent(boolean b) {
         ascDesc = b;
-    }
-
-    public boolean isAscDescPresent() {
-        return ascDesc;
     }
 
     public void accept(OrderByVisitor orderByVisitor) {
@@ -76,5 +70,11 @@ public class OrderByElement {
             b.append(nullOrdering == NullOrdering.NULLS_FIRST ? "NULLS FIRST" : "NULLS LAST");
         }
         return b.toString();
+    }
+
+    public enum NullOrdering {
+
+        NULLS_FIRST,
+        NULLS_LAST
     }
 }
