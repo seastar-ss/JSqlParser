@@ -486,7 +486,22 @@ public class PlainSelect extends ASTNodeAccessImpl implements SelectBody, HasWhe
 
     @Override
     public boolean addColExpression(Table table, String column, String alias) {
-        selectItems.add(new SelectExpressionItem().setAlias(new Alias(alias)).setExpression(new Column(table, column)));
+        String al=alias;
+        if (al == null) {
+            al = column;
+        }
+        selectItems.add(new SelectExpressionItem().setAlias(new Alias(al)).setExpression(new Column(table, column)));
+        return true;
+    }
+
+    @Override
+    public boolean addColExpression(Column column, String alias) {
+        String al=alias;
+
+        if (al == null) {
+            al = column.getColumnName();
+        }
+        selectItems.add(new SelectExpressionItem().setAlias(new Alias(al)).setExpression(column));
         return true;
     }
 

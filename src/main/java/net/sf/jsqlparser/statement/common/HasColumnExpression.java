@@ -9,10 +9,13 @@
  */
 package net.sf.jsqlparser.statement.common;
 
+import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.schema.Table;
 
 public interface HasColumnExpression {
     boolean addColExpression(Table table, String column, String alias);
+
+    boolean addColExpression(Column column, String alias);
 
     int removeAllColExpression();
 
