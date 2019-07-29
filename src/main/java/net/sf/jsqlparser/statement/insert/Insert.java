@@ -290,9 +290,31 @@ public class Insert implements Statement, net.sf.jsqlparser.statement.common.Has
 
     @Override
     public boolean addColExpression(Table table, String column, String alias) {
+        String al = alias;
+        if (al == null) {
+            al = column;
+        }
         columns.add(new Column(table, column));
-        ExpressionList list;
+//        ExpressionList list;
+        addParam(al);
+        return true;
+    }
 
+    @Override
+    public boolean addColExpression(Column column, String alias) {
+        String al = alias;
+        if (al == null) {
+            al = column.getColumnName();
+        }
+        //selectItems.add(new SelectExpressionItem().setAlias(new Alias(alias)).setExpression(column));
+        columns.add(column);
+        addParam(al);
+
+        return true;
+    }
+
+    private void addParam(String alias) {
+        ExpressionList list;
         if (itemsList == null) {
             list = new ExpressionList();
             itemsList = list;
@@ -306,7 +328,6 @@ public class Insert implements Statement, net.sf.jsqlparser.statement.common.Has
         if (list != null) {
             list.add(new JdbcNamedParameter(alias));
         }
-        return true;
     }
 
     @Override

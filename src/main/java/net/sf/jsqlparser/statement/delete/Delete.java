@@ -10,6 +10,7 @@
 package net.sf.jsqlparser.statement.delete;
 
 import net.sf.jsqlparser.expression.Expression;
+import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.schema.Table;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.StatementVisitor;
@@ -123,6 +124,11 @@ public class Delete implements Statement, HasWhere, HasMainTable, HasLimit, HasO
 
     @Override
     public boolean addColExpression(Table table, String column, String alias) {
+        return false;
+    }
+
+    @Override
+    public boolean addColExpression(Column column, String alias) {
         return false;
     }
 

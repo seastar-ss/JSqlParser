@@ -231,8 +231,24 @@ public class Update implements Statement, HasWhere, HasMainTable, net.sf.jsqlpar
 
     @Override
     public boolean addColExpression(Table table, String column, String alias) {
+        String al = alias;
+        if (al == null) {
+            al = column;
+        }
         columns.add(new Column(table, column));
-        expressions.add(new JdbcNamedParameter(alias));
+        expressions.add(new JdbcNamedParameter(al));
+        return true;
+    }
+
+    @Override
+    public boolean addColExpression(Column column, String alias) {
+        String al = alias;
+        if (al == null) {
+            al = column.getColumnName();
+        }
+        //selectItems.add(new SelectExpressionItem().setAlias(new Alias(alias)).setExpression(column));
+        columns.add(column);
+        expressions.add(new JdbcNamedParameter(al));
         return true;
     }
 
