@@ -9,19 +9,19 @@
  */
 package net.sf.jsqlparser.statement.alter;
 
-import java.util.Arrays;
-import java.util.List;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.alter.AlterExpression.ColumnDataType;
+import net.sf.jsqlparser.test.TestUtils;
+import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.List;
+
 import static net.sf.jsqlparser.test.TestUtils.assertSqlCanBeParsedAndDeparsed;
 import static net.sf.jsqlparser.test.TestUtils.assertStatementCanBeDeparsedAs;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import org.junit.Test;
+import static org.junit.Assert.*;
 
 public class AlterTest {
 
@@ -111,7 +111,7 @@ public class AlterTest {
     public void testAlterTableAddConstraintWithConstraintState2() throws JSQLParserException {
         assertSqlCanBeParsedAndDeparsed("ALTER TABLE RESOURCELINKTYPE ADD CONSTRAINT RESOURCELINKTYPE_PRIMARYKEY PRIMARY KEY (PRIMARYKEY) DEFERRABLE NOVALIDATE");
     }
-    
+
     @Test
     public void testAlterTableAddUniqueConstraint() throws JSQLParserException {
         assertSqlCanBeParsedAndDeparsed("ALTER TABLE Persons ADD UNIQUE (ID)");
@@ -264,11 +264,11 @@ public class AlterTest {
         assertEquals(AlterOperation.MODIFY, ((Alter) stmt).getAlterExpressions().get(0).
                 getOperation());
     }
-    
+
     @Test
     public void testAlterTableAlterColumn() throws JSQLParserException {
-      // http://www.postgresqltutorial.com/postgresql-change-column-type/
-      assertSqlCanBeParsedAndDeparsed("ALTER TABLE table_name ALTER COLUMN column_name_1 TYPE TIMESTAMP, ALTER COLUMN column_name_2 TYPE BOOLEAN");
+        // http://www.postgresqltutorial.com/postgresql-change-column-type/
+        assertSqlCanBeParsedAndDeparsed("ALTER TABLE table_name ALTER COLUMN column_name_1 TYPE TIMESTAMP, ALTER COLUMN column_name_2 TYPE BOOLEAN");
     }
 
     @Test
@@ -374,13 +374,18 @@ public class AlterTest {
         Statement result = CCJSqlParserUtil.parse("ALTER TABLE biz_add_fee DROP INDEX operation_time, " +
                 "ADD UNIQUE INDEX operation_time (`operation_time`, `warehouse_code`, `customerid`, `fees_type`, `external_no`) " +
                 "USING BTREE, ALGORITHM = INPLACE");
-        assertEquals("ALTER TABLE biz_add_fee DROP INDEX operation_time , " +
-                "ADD UNIQUE INDEX operation_time (`operation_time`, `warehouse_code`, `customerid`, `fees_type`, `external_no`) " +
-                "USING BTREE, ALGORITHM = INPLACE", result.toString());
+        assertEquals(
+                TestUtils.buildSqlString("ALTER TABLE biz_add_fee DROP INDEX operation_time , " +
+                        "ADD UNIQUE INDEX operation_time (`operation_time`, `warehouse_code`, `customerid`, `fees_type`, `external_no`) " +
+                        "USING BTREE, ALGORITHM = INPLACE", true),
+                TestUtils.buildSqlString(result.toString(), true)
+        );
     }
 
     @Test
     public void testIssue259() throws JSQLParserException {
-        assertSqlCanBeParsedAndDeparsed("ALTER TABLE feature_v2 ADD COLUMN third_user_id int (10) unsigned DEFAULT '0' COMMENT '第三方用户id' after kdt_id");
+        assertSqlCanBeParsedAndDeparsed(
+                "ALTER TABLE feature_v2 ADD COLUMN third_user_id int (10) unsigned DEFAULT '0' COMMENT '第三方用户id' after kdt_id"
+        );
     }
 }

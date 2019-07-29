@@ -9,10 +9,10 @@
  */
 package net.sf.jsqlparser.statement.merge;
 
-import java.util.List;
-
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.schema.Column;
+
+import java.util.List;
 
 public class MergeUpdate {
 

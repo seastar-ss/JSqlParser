@@ -9,9 +9,9 @@
  */
 package net.sf.jsqlparser.statement.create.table;
 
-import java.util.List;
+import net.sf.jsqlparser.util.SelectUtils;
 
-import net.sf.jsqlparser.statement.select.PlainSelect;
+import java.util.List;
 
 public class Index {
 
@@ -25,28 +25,12 @@ public class Index {
         return columnsNames;
     }
 
-    public void setColumnsNames(List<String> list) {
-        columnsNames = list;
-    }
-
     public String getName() {
         return name;
     }
 
-    public void setName(String string) {
-        name = string;
-    }
-
     public String getType() {
         return type;
-    }
-
-    public void setType(String string) {
-        type = string;
-    }
-
-    public String getUsing() {
-        return using;
     }
 
     /**
@@ -60,6 +44,22 @@ public class Index {
         using = string;
     }
 
+    public void setColumnsNames(List<String> list) {
+        columnsNames = list;
+    }
+
+    public void setName(String string) {
+        name = string;
+    }
+
+    public void setType(String string) {
+        type = string;
+    }
+
+    public String getUsing() {
+        return using;
+    }
+
     public List<String> getIndexSpec() {
         return idxSpec;
     }
@@ -70,8 +70,13 @@ public class Index {
 
     @Override
     public String toString() {
-        String idxSpecText = PlainSelect.getStringList(idxSpec, false, false);
-        return type + (name != null ? " " + name : "") + " " + PlainSelect.
-                getStringList(columnsNames, true, true) + (!"".equals(idxSpecText) ? " " + idxSpecText : "");
+        String idxSpecText = SelectUtils.getStringList(idxSpec, false, false);
+        return new StringBuilder().append(type)
+                .append(" ")
+                .append(name != null ? name : "")
+                .append(" ")
+                .append(SelectUtils.getStringList(columnsNames, true, true))
+                .append(" ")
+                .append(!"".equals(idxSpecText) ? idxSpecText : "").toString();
     }
 }

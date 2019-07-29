@@ -9,13 +9,14 @@
  */
 package net.sf.jsqlparser.util.cnfexpression;
 
-import java.util.ArrayList;
-import java.util.List;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.NotExpression;
 import net.sf.jsqlparser.expression.Parenthesis;
 import net.sf.jsqlparser.expression.operators.conditional.AndExpression;
 import net.sf.jsqlparser.expression.operators.conditional.OrExpression;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is mainly used for handling the cloning of an expression tree.
@@ -25,7 +26,6 @@ import net.sf.jsqlparser.expression.operators.conditional.OrExpression;
  * Since the CNF conversion only change the condition part of the tree.
  *
  * @author messfish
- *
  */
 class CloneHelper {
 
@@ -99,7 +99,7 @@ class CloneHelper {
      * respectively and return the root of the expression tree.
      *
      * @param isMultiOr variable tells whether the expression is or.
-     * @param exp the expression that needs to be converted.
+     * @param exp       the expression that needs to be converted.
      * @return the root of the expression tree.
      */
     public Expression changeBack(Boolean isMultiOr, Expression exp) {

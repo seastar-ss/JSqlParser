@@ -11,10 +11,10 @@ package net.sf.jsqlparser.util.deparser;
 
 import net.sf.jsqlparser.statement.create.view.CreateView;
 import net.sf.jsqlparser.statement.create.view.TemporaryOption;
-import net.sf.jsqlparser.statement.select.PlainSelect;
 import net.sf.jsqlparser.statement.select.Select;
 import net.sf.jsqlparser.statement.select.SelectVisitor;
 import net.sf.jsqlparser.statement.select.WithItem;
+import net.sf.jsqlparser.util.SelectUtils;
 
 public class CreateViewDeParser {
 
@@ -56,7 +56,7 @@ public class CreateViewDeParser {
         }
         buffer.append("VIEW ").append(createView.getView().getFullyQualifiedName());
         if (createView.getColumnNames() != null) {
-            buffer.append(PlainSelect.getStringList(createView.getColumnNames(), true, true));
+            buffer.append(SelectUtils.getStringList(createView.getColumnNames(), true, true));
         }
         buffer.append(" AS ");
 

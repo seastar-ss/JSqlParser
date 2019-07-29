@@ -9,11 +9,11 @@
  */
 package net.sf.jsqlparser.statement.merge;
 
-import java.util.List;
-
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.schema.Column;
-import net.sf.jsqlparser.statement.select.PlainSelect;
+import net.sf.jsqlparser.util.SelectUtils;
+
+import java.util.List;
 
 public class MergeInsert {
 
@@ -39,7 +39,7 @@ public class MergeInsert {
     @Override
     public String toString() {
         return " WHEN NOT MATCHED THEN INSERT "
-                + (columns.isEmpty() ? "" : PlainSelect.getStringList(columns, true, true))
-                + " VALUES " + PlainSelect.getStringList(values, true, true);
+                + (columns.isEmpty() ? "" : SelectUtils.getStringList(columns, true, true))
+                + " VALUES " + SelectUtils.getStringList(values, true, true);
     }
 }

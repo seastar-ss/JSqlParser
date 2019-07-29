@@ -9,12 +9,12 @@
  */
 package net.sf.jsqlparser.statement.execute;
 
-import java.util.List;
-
 import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.StatementVisitor;
-import net.sf.jsqlparser.statement.select.PlainSelect;
+import net.sf.jsqlparser.util.SelectUtils;
+
+import java.util.List;
 
 public class Execute implements Statement {
 
@@ -27,6 +27,10 @@ public class Execute implements Statement {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public void setName(List<String> names) {
         for (String item : names) {
             if (this.name != null) {
@@ -35,10 +39,6 @@ public class Execute implements Statement {
                 this.name = item;
             }
         }
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public ExpressionList getExprList() {
@@ -74,7 +74,7 @@ public class Execute implements Statement {
     public String toString() {
         return execType.name() + " " + name
                 + (exprList != null && exprList.getExpressions() != null ? " "
-                + PlainSelect.getStringList(exprList.getExpressions(), true, parenthesis) : "");
+                + SelectUtils.getStringList(exprList.getExpressions(), true, parenthesis) : "");
     }
 
     public static enum EXEC_TYPE {

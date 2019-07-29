@@ -9,15 +9,17 @@
  */
 package net.sf.jsqlparser.statement.create;
 
-import java.io.StringReader;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.parser.CCJSqlParserManager;
 import net.sf.jsqlparser.statement.create.index.CreateIndex;
-import static net.sf.jsqlparser.test.TestUtils.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import org.junit.Ignore;
 import org.junit.Test;
+
+import java.io.StringReader;
+
+import static net.sf.jsqlparser.test.TestUtils.assertSqlCanBeParsedAndDeparsed;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class CreateIndexTest {
 
@@ -101,7 +103,7 @@ public class CreateIndexTest {
         assertNull(createIndex.getIndex().getType());
         assertEquals("mytab", createIndex.getTable().getFullyQualifiedName());
         assertEquals("mycol", createIndex.getIndex().getColumnsNames().get(0));
-        assertEquals("GIST", createIndex.getIndex().getUsing()); 
+        assertEquals("GIST", createIndex.getIndex().getUsing());
         assertEquals(statement, "" + createIndex);
         assertSqlCanBeParsedAndDeparsed(statement);
     }

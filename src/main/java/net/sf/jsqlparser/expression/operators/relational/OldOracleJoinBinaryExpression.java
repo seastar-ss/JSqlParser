@@ -10,7 +10,6 @@
 package net.sf.jsqlparser.expression.operators.relational;
 
 import net.sf.jsqlparser.expression.BinaryExpression;
-import static net.sf.jsqlparser.expression.operators.relational.SupportsOldOracleJoinSyntax.ORACLE_PRIOR_START;
 
 public abstract class OldOracleJoinBinaryExpression extends BinaryExpression implements SupportsOldOracleJoinSyntax {
 
@@ -30,12 +29,12 @@ public abstract class OldOracleJoinBinaryExpression extends BinaryExpression imp
     public String toString() {
         return //(isNot() ? "NOT " : "")
                 (oraclePriorPosition == ORACLE_PRIOR_START ? "PRIOR " : "")
-                + getLeftExpression()
-                + (oldOracleJoinSyntax == ORACLE_JOIN_RIGHT ? "(+)" : "") + " "
-                + getStringExpression() + " "
-                + (oraclePriorPosition == ORACLE_PRIOR_END ? "PRIOR " : "")
-                + getRightExpression()
-                + (oldOracleJoinSyntax == ORACLE_JOIN_LEFT ? "(+)" : "");
+                        + getLeftExpression()
+                        + (oldOracleJoinSyntax == ORACLE_JOIN_RIGHT ? "(+)" : "") + " "
+                        + getStringExpression() + " "
+                        + (oraclePriorPosition == ORACLE_PRIOR_END ? "PRIOR " : "")
+                        + getRightExpression()
+                        + (oldOracleJoinSyntax == ORACLE_JOIN_LEFT ? "(+)" : "");
     }
 
     @Override

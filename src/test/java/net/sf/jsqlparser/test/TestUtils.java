@@ -9,8 +9,6 @@
  */
 package net.sf.jsqlparser.test;
 
-import java.io.StringReader;
-import java.util.regex.Pattern;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.OracleHint;
@@ -23,12 +21,15 @@ import net.sf.jsqlparser.util.deparser.ExpressionDeParser;
 import net.sf.jsqlparser.util.deparser.SelectDeParser;
 import net.sf.jsqlparser.util.deparser.StatementDeParser;
 import org.junit.Assert;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
+import java.io.StringReader;
+import java.util.regex.Pattern;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 /**
- *
  * @author toben
  */
 public class TestUtils {
@@ -37,7 +38,7 @@ public class TestUtils {
             compile("(--.*$)|(/\\*.*?\\*/)", Pattern.MULTILINE);
 
     public static void assertSqlCanBeParsedAndDeparsed(String statement) throws JSQLParserException {
-        assertSqlCanBeParsedAndDeparsed(statement, false);
+        assertSqlCanBeParsedAndDeparsed(statement, true);
     }
 
     /**
@@ -45,7 +46,7 @@ public class TestUtils {
      *
      * @param statement
      * @param laxDeparsingCheck removes all linefeeds from the original and removes all double
-     * spaces. The check is caseinsensitive.
+     *                          spaces. The check is caseinsensitive.
      * @throws JSQLParserException
      */
     public static void assertSqlCanBeParsedAndDeparsed(String statement, boolean laxDeparsingCheck) throws JSQLParserException {
@@ -75,6 +76,15 @@ public class TestUtils {
         } else {
             return sql;
         }
+    }
+
+    @Test
+    public void printBuildSql() {
+        String test = TestUtils.buildSqlString("ALTER TABLE biz_add_fee DROP INDEX operation_time , " +
+                "ADD UNIQUE INDEX operation_time (`operation_time`, `warehouse_code`, `customerid`, `fees_type`, `external_no`) " +
+                "USING BTREE, ALGORITHM = INPLACE", true);
+
+        System.out.println(test);
     }
 
     @Test

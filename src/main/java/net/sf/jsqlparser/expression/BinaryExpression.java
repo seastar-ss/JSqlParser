@@ -40,7 +40,7 @@ public abstract class BinaryExpression extends ASTNodeAccessImpl implements Expr
         rightExpression = expression;
     }
 
-//    public void setNot() {
+    //    public void setNot() {
 //        not = true;
 //    }
 //    

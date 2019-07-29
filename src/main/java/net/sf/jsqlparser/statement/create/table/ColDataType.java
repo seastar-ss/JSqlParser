@@ -9,10 +9,10 @@
  */
 package net.sf.jsqlparser.statement.create.table;
 
+import net.sf.jsqlparser.util.SelectUtils;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import net.sf.jsqlparser.statement.select.PlainSelect;
 
 public class ColDataType {
 
@@ -25,12 +25,12 @@ public class ColDataType {
         return argumentsStringList;
     }
 
-    public void setArgumentsStringList(List<String> list) {
-        argumentsStringList = list;
-    }
-
     public String getDataType() {
         return dataType;
+    }
+
+    public void setArgumentsStringList(List<String> list) {
+        argumentsStringList = list;
     }
 
     public void setDataType(String string) {
@@ -64,7 +64,7 @@ public class ColDataType {
             arraySpec.append("]");
         }
         return dataType
-                + (argumentsStringList != null ? " " + PlainSelect.
+                + (argumentsStringList != null ? " " + SelectUtils.
                 getStringList(argumentsStringList, true, true) : "")
                 + arraySpec.toString()
                 + (characterSet != null ? " CHARACTER SET " + characterSet : "");

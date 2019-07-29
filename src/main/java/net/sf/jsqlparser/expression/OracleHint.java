@@ -9,9 +9,10 @@
  */
 package net.sf.jsqlparser.expression;
 
+import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
 
 /**
  * Oracle Hint Expression

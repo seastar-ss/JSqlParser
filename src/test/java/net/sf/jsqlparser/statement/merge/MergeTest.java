@@ -12,12 +12,12 @@ package net.sf.jsqlparser.statement.merge;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 import net.sf.jsqlparser.statement.Statement;
-import static net.sf.jsqlparser.test.TestUtils.*;
-import static org.junit.Assert.fail;
 import org.junit.Test;
 
+import static net.sf.jsqlparser.test.TestUtils.assertSqlCanBeParsedAndDeparsed;
+import static org.junit.Assert.fail;
+
 /**
- *
  * @author toben
  */
 public class MergeTest {

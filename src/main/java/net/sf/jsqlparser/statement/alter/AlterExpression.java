@@ -9,14 +9,15 @@
  */
 package net.sf.jsqlparser.statement.alter;
 
+import net.sf.jsqlparser.statement.create.table.ColDataType;
+import net.sf.jsqlparser.statement.create.table.Index;
+import net.sf.jsqlparser.statement.select.PlainSelect;
+import net.sf.jsqlparser.util.SelectUtils;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
-import net.sf.jsqlparser.statement.create.table.ColDataType;
-import net.sf.jsqlparser.statement.create.table.Index;
-import net.sf.jsqlparser.statement.select.PlainSelect;
 
 public class AlterExpression {
 
@@ -282,13 +283,13 @@ public class AlterExpression {
             b.append(index);
         }
         if (getConstraints() != null && !getConstraints().isEmpty()) {
-            b.append(' ').append(PlainSelect.getStringList(constraints, false, false));
+            b.append(' ').append(SelectUtils.getStringList(constraints, false, false));
         }
         if (getUseEqual()) {
             b.append('=');
         }
         if (parameters != null && !parameters.isEmpty()) {
-            b.append(' ').append(PlainSelect.getStringList(parameters, false, false));
+            b.append(' ').append(SelectUtils.getStringList(parameters, false, false));
         }
 
         return b.toString();
@@ -332,7 +333,7 @@ public class AlterExpression {
             if (columnSpecs == null || columnSpecs.isEmpty()) {
                 return "";
             }
-            return " " + PlainSelect.getStringList(columnSpecs, false, false);
+            return " " + SelectUtils.getStringList(columnSpecs, false, false);
         }
     }
 

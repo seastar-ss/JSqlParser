@@ -9,13 +9,12 @@
  */
 package net.sf.jsqlparser.statement.drop;
 
-import java.util.List;
-
 import net.sf.jsqlparser.schema.Table;
-
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.StatementVisitor;
 import net.sf.jsqlparser.statement.select.PlainSelect;
+
+import java.util.List;
 
 public class Drop implements Statement {
 
@@ -33,20 +32,20 @@ public class Drop implements Statement {
         return name;
     }
 
-    public void setName(Table string) {
-        name = string;
-    }
-
     public List<String> getParameters() {
         return parameters;
     }
 
-    public void setParameters(List<String> list) {
-        parameters = list;
-    }
-
     public String getType() {
         return type;
+    }
+
+    public void setName(Table string) {
+        name = string;
+    }
+
+    public void setParameters(List<String> list) {
+        parameters = list;
     }
 
     public void setType(String string) {

@@ -9,11 +9,12 @@
  */
 package net.sf.jsqlparser.util.deparser;
 
-import java.util.Iterator;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.ExpressionVisitor;
 import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 import net.sf.jsqlparser.statement.select.GroupByElement;
+
+import java.util.Iterator;
 
 public class GroupByDeParser {
 
@@ -30,7 +31,7 @@ public class GroupByDeParser {
 
     public void deParse(GroupByElement groupBy) {
         buffer.append("GROUP BY ");
-        for (Iterator<Expression> iter = groupBy.getGroupByExpressions().iterator(); iter.hasNext();) {
+        for (Iterator<Expression> iter = groupBy.getGroupByExpressions().iterator(); iter.hasNext(); ) {
             iter.next().accept(expressionVisitor);
             if (iter.hasNext()) {
                 buffer.append(", ");

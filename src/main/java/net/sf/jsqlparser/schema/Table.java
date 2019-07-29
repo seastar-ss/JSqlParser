@@ -9,19 +9,24 @@
  */
 package net.sf.jsqlparser.schema;
 
+import net.sf.jsqlparser.expression.Alias;
+import net.sf.jsqlparser.expression.MySQLIndexHint;
+import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
+import net.sf.jsqlparser.statement.select.FromItem;
+import net.sf.jsqlparser.statement.select.FromItemVisitor;
+import net.sf.jsqlparser.statement.select.IntoTableVisitor;
+import net.sf.jsqlparser.statement.select.Pivot;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import net.sf.jsqlparser.expression.*;
-import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
-import net.sf.jsqlparser.statement.select.*;
 
 /**
  * A table. It can have an alias and the schema name it belongs to.
  */
 public class Table extends ASTNodeAccessImpl implements FromItem, MultiPartName {
 
-//    private Database database;
+    //    private Database database;
 //    private String schemaName;
 //    private String name;
     private static final int NAME_IDX = 0;

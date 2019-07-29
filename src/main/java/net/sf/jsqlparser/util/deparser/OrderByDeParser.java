@@ -39,7 +39,7 @@ public class OrderByDeParser {
             buffer.append(" ORDER BY ");
         }
 
-        for (Iterator<OrderByElement> iter = orderByElementList.iterator(); iter.hasNext();) {
+        for (Iterator<OrderByElement> iter = orderByElementList.iterator(); iter.hasNext(); ) {
             OrderByElement orderByElement = iter.next();
             deParseElement(orderByElement);
             if (iter.hasNext()) {

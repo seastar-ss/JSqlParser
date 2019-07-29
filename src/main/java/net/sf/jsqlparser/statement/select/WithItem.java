@@ -9,6 +9,8 @@
  */
 package net.sf.jsqlparser.statement.select;
 
+import net.sf.jsqlparser.util.SelectUtils;
+
 import java.util.List;
 
 public class WithItem implements SelectBody {
@@ -57,7 +59,7 @@ public class WithItem implements SelectBody {
 
     @Override
     public String toString() {
-        return (recursive ? "RECURSIVE " : "") + name + ((withItemList != null) ? " " + PlainSelect.
+        return (recursive ? "RECURSIVE " : "") + name + ((withItemList != null) ? " " + SelectUtils.
                 getStringList(withItemList, true, true) : "")
                 + " AS (" + selectBody + ")";
     }

@@ -9,7 +9,7 @@
  */
 package net.sf.jsqlparser.statement.select;
 
-import net.sf.jsqlparser.expression.*;
+import net.sf.jsqlparser.expression.Alias;
 
 public class ParenthesisFromItem implements FromItem {
 

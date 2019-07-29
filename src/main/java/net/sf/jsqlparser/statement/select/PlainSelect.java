@@ -9,21 +9,26 @@
  */
 package net.sf.jsqlparser.statement.select;
 
+import net.sf.jsqlparser.expression.Alias;
+import net.sf.jsqlparser.expression.Expression;
+import net.sf.jsqlparser.expression.OracleHierarchicalExpression;
+import net.sf.jsqlparser.expression.OracleHint;
+import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
+import net.sf.jsqlparser.schema.Column;
+import net.sf.jsqlparser.schema.Table;
+import net.sf.jsqlparser.statement.common.HasColumnExpression;
+import net.sf.jsqlparser.statement.common.HasLimit;
+import net.sf.jsqlparser.statement.common.HasMainTable;
+import net.sf.jsqlparser.statement.common.HasWhere;
+import net.sf.jsqlparser.util.SelectUtils;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import net.sf.jsqlparser.expression.Expression;
-import net.sf.jsqlparser.expression.OracleHierarchicalExpression;
-import net.sf.jsqlparser.expression.OracleHint;
-import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
-import net.sf.jsqlparser.schema.Table;
-import net.sf.jsqlparser.statement.common.HasLimit;
-import net.sf.jsqlparser.statement.common.HasMainTable;
-import net.sf.jsqlparser.statement.common.HasWhere;
-
-public class PlainSelect extends ASTNodeAccessImpl implements SelectBody, HasWhere, HasMainTable, HasLimit, net.sf.jsqlparser.statement.common.HasOrderBy {
+public class PlainSelect extends ASTNodeAccessImpl implements SelectBody, HasWhere, HasMainTable, HasLimit,
+        net.sf.jsqlparser.statement.common.HasOrderBy, HasColumnExpression {
 
     private Distinct distinct = null;
     private List<SelectItem> selectItems;
@@ -53,82 +58,6 @@ public class PlainSelect extends ASTNodeAccessImpl implements SelectBody, HasWhe
     private String forXmlPath;
     private KSQLWindow ksqlWindow = null;
 
-    public static String orderByToString(List<OrderByElement> orderByElements) {
-        return orderByToString(false, orderByElements);
-    }
-
-    public static String orderByToString(boolean oracleSiblings, List<OrderByElement> orderByElements) {
-        return getFormatedList(orderByElements, oracleSiblings ? "ORDER SIBLINGS BY" : "ORDER BY");
-    }
-
-    public static String getFormatedList(List<?> list, String expression) {
-        return getFormatedList(list, expression, true, false);
-    }
-
-    public static String getFormatedList(List<?> list, String expression, boolean useComma, boolean useBrackets) {
-        String sql = getStringList(list, useComma, useBrackets);
-
-        if (sql.length() > 0) {
-            if (expression.length() > 0) {
-                sql = " " + expression + " " + sql;
-            } else {
-                sql = " " + sql;
-            }
-        }
-
-        return sql;
-    }
-
-    /**
-     * List the toString out put of the objects in the List comma separated. If the List is null or
-     * empty an empty string is returned.
-     * <p>
-     * The same as getStringList(list, true, false)
-     *
-     * @param list list of objects with toString methods
-     * @return comma separated list of the elements in the list
-     * @see #getStringList(List, boolean, boolean)
-     */
-    public static String getStringList(List<?> list) {
-        return getStringList(list, true, false);
-    }
-
-    /**
-     * List the toString out put of the objects in the List that can be comma separated. If the List
-     * is null or empty an empty string is returned.
-     *
-     * @param list        list of objects with toString methods
-     * @param useComma    true if the list has to be comma separated
-     * @param useBrackets true if the list has to be enclosed in brackets
-     * @return comma separated list of the elements in the list
-     */
-    public static String getStringList(List<?> list, boolean useComma, boolean useBrackets) {
-        StringBuilder ans = new StringBuilder();
-//        String ans = "";
-        String comma = ",";
-        if (!useComma) {
-            comma = "";
-        }
-        if (list != null) {
-            if (useBrackets) {
-                ans.append("(");
-//                ans += "(";
-            }
-
-            for (int i = 0; i < list.size(); i++) {
-                ans.append(list.get(i)).append((i < list.size() - 1) ? comma + " " : "");
-//                ans += "" + list.get(i) + ((i < list.size() - 1) ? comma + " " : "");
-            }
-
-            if (useBrackets) {
-                ans.append(")");
-//                ans += ")";
-            }
-        }
-
-        return ans.toString();
-    }
-
     public boolean isUseBrackets() {
         return useBrackets;
     }
@@ -141,24 +70,12 @@ public class PlainSelect extends ASTNodeAccessImpl implements SelectBody, HasWhe
         return fromItem;
     }
 
-    public void setFromItem(FromItem item) {
-        fromItem = item;
-    }
-
     public List<Table> getIntoTables() {
         return intoTables;
     }
 
-    public void setIntoTables(List<Table> intoTables) {
-        this.intoTables = intoTables;
-    }
-
     public List<SelectItem> getSelectItems() {
         return selectItems;
-    }
-
-    public void setSelectItems(List<SelectItem> list) {
-        selectItems = list;
     }
 
     @Override
@@ -166,9 +83,16 @@ public class PlainSelect extends ASTNodeAccessImpl implements SelectBody, HasWhe
         return where;
     }
 
-    @Override
-    public void setWhere(Expression where) {
-        this.where = where;
+    public void setFromItem(FromItem item) {
+        fromItem = item;
+    }
+
+    public void setIntoTables(List<Table> intoTables) {
+        this.intoTables = intoTables;
+    }
+
+    public void setSelectItems(List<SelectItem> list) {
+        selectItems = list;
     }
 
     public void addSelectItems(SelectItem... items) {
@@ -176,6 +100,11 @@ public class PlainSelect extends ASTNodeAccessImpl implements SelectBody, HasWhe
             selectItems = new ArrayList<SelectItem>();
         }
         Collections.addAll(selectItems, items);
+    }
+
+    @Override
+    public void setWhere(Expression where) {
+        this.where = where;
     }
 
     /**
@@ -340,21 +269,21 @@ public class PlainSelect extends ASTNodeAccessImpl implements SelectBody, HasWhe
     }
 
     /**
-     * Returns the value of the {@link Wait} set for this SELECT
-     *
-     * @return the value of the {@link Wait} set for this SELECT
-     */
-    public Wait getWait() {
-        return wait;
-    }
-
-    /**
      * Sets the {@link Wait} for this SELECT
      *
      * @param wait the {@link Wait} for this SELECT
      */
     public void setWait(final Wait wait) {
         this.wait = wait;
+    }
+
+    /**
+     * Returns the value of the {@link Wait} set for this SELECT
+     *
+     * @return the value of the {@link Wait} set for this SELECT
+     */
+    public Wait getWait() {
+        return wait;
     }
 
     public String getForXmlPath() {
@@ -486,20 +415,60 @@ public class PlainSelect extends ASTNodeAccessImpl implements SelectBody, HasWhe
         return sql.toString();
     }
 
-    public boolean getMySqlSqlCalcFoundRows() {
-        return this.mySqlSqlCalcFoundRows;
+    public static String orderByToString(List<OrderByElement> orderByElements) {
+        return orderByToString(false, orderByElements);
+    }
+
+    public static String orderByToString(boolean oracleSiblings, List<OrderByElement> orderByElements) {
+        return getFormatedList(orderByElements, oracleSiblings ? "ORDER SIBLINGS BY" : "ORDER BY");
+    }
+
+    public static String getFormatedList(List<?> list, String expression) {
+        return getFormatedList(list, expression, true, false);
+    }
+
+    public static String getFormatedList(List<?> list, String expression, boolean useComma, boolean useBrackets) {
+        String sql = SelectUtils.getStringList(list, useComma, useBrackets);
+
+        if (sql.length() > 0) {
+            if (expression.length() > 0) {
+                sql = " " + expression + " " + sql;
+            } else {
+                sql = " " + sql;
+            }
+        }
+
+        return sql;
+    }
+
+    /**
+     * List the toString out put of the objects in the List comma separated. If the List is null or
+     * empty an empty string is returned.
+     * <p>
+     * The same as getStringList(list, true, false)
+     *
+     * @param list list of objects with toString methods
+     * @return comma separated list of the elements in the list
+     * @see SelectUtils#getStringList(List, boolean, boolean)
+     */
+    public static String getStringList(List<?> list) {
+        return SelectUtils.getStringList(list, true, false);
     }
 
     public void setMySqlSqlCalcFoundRows(boolean mySqlCalcFoundRows) {
         this.mySqlSqlCalcFoundRows = mySqlCalcFoundRows;
     }
 
-    public boolean getMySqlSqlNoCache() {
-        return this.sqlNoCacheFlag;
-    }
-
     public void setMySqlSqlNoCache(boolean sqlNoCacheFlagSet) {
         this.sqlNoCacheFlag = sqlNoCacheFlagSet;
+    }
+
+    public boolean getMySqlSqlCalcFoundRows() {
+        return this.mySqlSqlCalcFoundRows;
+    }
+
+    public boolean getMySqlSqlNoCache() {
+        return this.sqlNoCacheFlag;
     }
 
     @Override
@@ -513,5 +482,18 @@ public class PlainSelect extends ASTNodeAccessImpl implements SelectBody, HasWhe
     @Override
     public void setTable(Table name) {
         setFromItem(name);
+    }
+
+    @Override
+    public boolean addColExpression(Table table, String column, String alias) {
+        selectItems.add(new SelectExpressionItem().setAlias(new Alias(alias)).setExpression(new Column(table, column)));
+        return true;
+    }
+
+    @Override
+    public int removeAllColExpression() {
+        int size = selectItems.size();
+        selectItems.clear();
+        return size;
     }
 }

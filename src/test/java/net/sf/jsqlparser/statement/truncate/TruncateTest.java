@@ -9,14 +9,14 @@
  */
 package net.sf.jsqlparser.statement.truncate;
 
+import net.sf.jsqlparser.JSQLParserException;
+import net.sf.jsqlparser.parser.CCJSqlParserManager;
+import org.junit.Test;
+
 import java.io.StringReader;
 
-import static net.sf.jsqlparser.test.TestUtils.*;
-import net.sf.jsqlparser.*;
-
-import net.sf.jsqlparser.parser.CCJSqlParserManager;
+import static net.sf.jsqlparser.test.TestUtils.assertSqlCanBeParsedAndDeparsed;
 import static org.junit.Assert.assertEquals;
-import org.junit.Test;
 
 public class TruncateTest {
 

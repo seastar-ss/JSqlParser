@@ -9,8 +9,6 @@
  */
 package net.sf.jsqlparser.expression;
 
-import java.util.ArrayList;
-import java.util.List;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.expression.operators.relational.InExpression;
 import net.sf.jsqlparser.expression.operators.relational.ItemsList;
@@ -19,19 +17,14 @@ import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.statement.select.PlainSelect;
 import net.sf.jsqlparser.statement.select.Select;
 import net.sf.jsqlparser.statement.select.SelectVisitorAdapter;
-import org.junit.After;
-import org.junit.AfterClass;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 /**
- * 
  * @author tw
  */
 public class ExpressionVisitorAdapterTest {
@@ -179,28 +172,28 @@ public class ExpressionVisitorAdapterTest {
             fail();
         }
     }
-    
+
     @Test
     public void testCaseWithoutElse() throws JSQLParserException {
         Expression expr = CCJSqlParserUtil.parseExpression("CASE WHEN 1 then 0 END");
         ExpressionVisitorAdapter adapter = new ExpressionVisitorAdapter();
         expr.accept(adapter);
     }
-    
+
     @Test
     public void testCaseWithoutElse2() throws JSQLParserException {
         Expression expr = CCJSqlParserUtil.parseExpression("CASE WHEN 1 then 0 ELSE -1 END");
         ExpressionVisitorAdapter adapter = new ExpressionVisitorAdapter();
         expr.accept(adapter);
     }
-    
+
     @Test
     public void testCaseWithoutElse3() throws JSQLParserException {
         Expression expr = CCJSqlParserUtil.parseExpression("CASE 3+4 WHEN 1 then 0 END");
         ExpressionVisitorAdapter adapter = new ExpressionVisitorAdapter();
         expr.accept(adapter);
     }
-    
+
     @Test
     public void testAnalyticFunctionWithoutExpression502() throws JSQLParserException {
         Expression expr = CCJSqlParserUtil.parseExpression("row_number() over (order by c)");

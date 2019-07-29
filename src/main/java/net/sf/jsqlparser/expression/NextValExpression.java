@@ -9,8 +9,9 @@
  */
 package net.sf.jsqlparser.expression;
 
-import java.util.List;
 import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
+
+import java.util.List;
 
 public class NextValExpression extends ASTNodeAccessImpl implements Expression {
 

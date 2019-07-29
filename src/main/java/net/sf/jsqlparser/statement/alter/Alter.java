@@ -9,13 +9,13 @@
  */
 package net.sf.jsqlparser.statement.alter;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import net.sf.jsqlparser.schema.Table;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.StatementVisitor;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class Alter implements Statement {
 

@@ -9,9 +9,11 @@
  */
 package net.sf.jsqlparser.schema;
 
-import java.util.List;
-import net.sf.jsqlparser.expression.*;
+import net.sf.jsqlparser.expression.Expression;
+import net.sf.jsqlparser.expression.ExpressionVisitor;
 import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
+
+import java.util.List;
 
 /**
  * A column. It can have the table name it belongs to.
@@ -31,7 +33,7 @@ public final class Column extends ASTNodeAccessImpl implements Expression, Multi
 
     public Column(List<String> nameParts) {
         this(nameParts.size() > 1
-                ? new Table(nameParts.subList(0, nameParts.size() - 1)) : null,
+                        ? new Table(nameParts.subList(0, nameParts.size() - 1)) : null,
                 nameParts.get(nameParts.size() - 1));
     }
 
@@ -59,7 +61,7 @@ public final class Column extends ASTNodeAccessImpl implements Expression, Multi
      * just an alias for {@code Foo}.
      *
      * @return an instance of {@link net.sf.jsqlparser.schema.Table} representing the
-     *          table this column does belong to, if it can be inferred. Can be {@code null}.
+     * table this column does belong to, if it can be inferred. Can be {@code null}.
      */
     public Table getTable() {
         return table;

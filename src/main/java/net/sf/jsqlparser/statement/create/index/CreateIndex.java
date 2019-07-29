@@ -9,11 +9,12 @@
  */
 package net.sf.jsqlparser.statement.create.index;
 
-import net.sf.jsqlparser.schema.*;
-import net.sf.jsqlparser.statement.*;
-import net.sf.jsqlparser.statement.create.table.*;
+import net.sf.jsqlparser.schema.Table;
+import net.sf.jsqlparser.statement.Statement;
+import net.sf.jsqlparser.statement.StatementVisitor;
+import net.sf.jsqlparser.statement.create.table.Index;
 
-import java.util.*;
+import java.util.Iterator;
 
 public class CreateIndex implements Statement {
 

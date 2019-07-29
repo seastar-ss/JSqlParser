@@ -9,11 +9,11 @@
  */
 package net.sf.jsqlparser.expression;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
 import net.sf.jsqlparser.schema.Column;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class JsonExpression extends ASTNodeAccessImpl implements Expression {
 
@@ -35,7 +35,7 @@ public class JsonExpression extends ASTNodeAccessImpl implements Expression {
         this.column = column;
     }
 
-//    public List<String> getIdents() {
+    //    public List<String> getIdents() {
 //        return idents;
 //    }
 //

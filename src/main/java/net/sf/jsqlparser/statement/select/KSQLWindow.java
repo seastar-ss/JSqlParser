@@ -13,6 +13,45 @@ import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
 
 public class KSQLWindow extends ASTNodeAccessImpl {
 
+    public enum TimeUnit {
+        DAY("DAY"),
+        HOUR("HOUR"),
+        MINUTE("MINUTE"),
+        SECOND("SECOND"),
+        MILLISECOND("MILLISECOND"),
+        DAYS("DAYS"),
+        HOURS("HOURS"),
+        MINUTES("MINUTES"),
+        SECONDS("SECONDS"),
+        MILLISECONDS("MILLISECONDS");
+
+        private String timeUnit;
+
+        TimeUnit(String timeUnit) {
+            this.timeUnit = timeUnit;
+        }
+
+        public String getTimeUnit() {
+            return timeUnit;
+        }
+    }
+
+    public enum WindowType {
+        HOPPING("HOPPING"),
+        SESSION("SESSION"),
+        TUMBLING("TUMBLING");
+
+        private String windowType;
+
+        WindowType(String windowType) {
+            this.windowType = windowType;
+        }
+
+        public String getWindowType() {
+            return windowType;
+        }
+    }
+
     private boolean hopping;
     private boolean tumbling;
     private boolean session;
@@ -20,8 +59,6 @@ public class KSQLWindow extends ASTNodeAccessImpl {
     private TimeUnit sizeTimeUnit;
     private long advanceDuration;
     private TimeUnit advanceTimeUnit;
-    public KSQLWindow() {
-    }
 
     public boolean isHoppingWindow() {
         return hopping;
@@ -79,6 +116,9 @@ public class KSQLWindow extends ASTNodeAccessImpl {
         this.advanceTimeUnit = advanceTimeUnit;
     }
 
+    public KSQLWindow() {
+    }
+
     @Override
     public String toString() {
         if (isHoppingWindow()) {
@@ -88,45 +128,6 @@ public class KSQLWindow extends ASTNodeAccessImpl {
             return "SESSION (" + sizeDuration + " " + sizeTimeUnit + ")";
         } else {
             return "TUMBLING (" + "SIZE " + sizeDuration + " " + sizeTimeUnit + ")";
-        }
-    }
-
-    public enum TimeUnit {
-        DAY("DAY"),
-        HOUR("HOUR"),
-        MINUTE("MINUTE"),
-        SECOND("SECOND"),
-        MILLISECOND("MILLISECOND"),
-        DAYS("DAYS"),
-        HOURS("HOURS"),
-        MINUTES("MINUTES"),
-        SECONDS("SECONDS"),
-        MILLISECONDS("MILLISECONDS");
-
-        private String timeUnit;
-
-        TimeUnit(String timeUnit) {
-            this.timeUnit = timeUnit;
-        }
-
-        public String getTimeUnit() {
-            return timeUnit;
-        }
-    }
-
-    public enum WindowType {
-        HOPPING("HOPPING"),
-        SESSION("SESSION"),
-        TUMBLING("TUMBLING");
-
-        private String windowType;
-
-        WindowType(String windowType) {
-            this.windowType = windowType;
-        }
-
-        public String getWindowType() {
-            return windowType;
         }
     }
 }

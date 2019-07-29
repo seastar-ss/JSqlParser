@@ -9,6 +9,14 @@
  */
 package net.sf.jsqlparser.statement.select;
 
+import net.sf.jsqlparser.JSQLParserException;
+import net.sf.jsqlparser.parser.CCJSqlParserManager;
+import net.sf.jsqlparser.statement.Statement;
+import net.sf.jsqlparser.statement.simpleparsing.CCJSqlParserManagerTest;
+import net.sf.jsqlparser.test.TestException;
+import net.sf.jsqlparser.util.TablesNamesFinder;
+import org.junit.Test;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.StringReader;
@@ -16,14 +24,6 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import net.sf.jsqlparser.JSQLParserException;
-import net.sf.jsqlparser.parser.CCJSqlParserManager;
-import net.sf.jsqlparser.statement.Statement;
-import net.sf.jsqlparser.test.TestException;
-import net.sf.jsqlparser.statement.simpleparsing.CCJSqlParserManagerTest;
-import net.sf.jsqlparser.util.TablesNamesFinder;
-import org.junit.Test;
 
 public class SpeedTest {
 
@@ -124,7 +124,7 @@ public class SpeedTest {
         numTests = 0;
         time = System.currentTimeMillis();
         // measure the time to get the tables names from all the SELECTs parsed before
-        for (Iterator iter = parsedSelects.iterator(); iter.hasNext();) {
+        for (Iterator iter = parsedSelects.iterator(); iter.hasNext(); ) {
             Select select = (Select) iter.next();
             if (select != null) {
                 numTests++;

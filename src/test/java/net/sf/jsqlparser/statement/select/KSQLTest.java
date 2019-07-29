@@ -16,9 +16,7 @@ import org.junit.Test;
 
 import static net.sf.jsqlparser.test.TestUtils.assertSqlCanBeParsedAndDeparsed;
 import static net.sf.jsqlparser.test.TestUtils.assertStatementCanBeDeparsedAs;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class KSQLTest {
 
@@ -142,7 +140,7 @@ public class KSQLTest {
 
         statement = CCJSqlParserUtil.parse(sql);
         System.out.println(statement.toString());
-                Select select = (Select) statement;
+        Select select = (Select) statement;
         PlainSelect plainSelect = (PlainSelect) select.getSelectBody();
         assertTrue(plainSelect.getKsqlWindow().isTumblingWindow());
         assertFalse(plainSelect.getKsqlWindow().isSessionWindow());

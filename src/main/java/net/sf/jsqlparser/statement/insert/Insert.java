@@ -9,20 +9,27 @@
  */
 package net.sf.jsqlparser.statement.insert;
 
-import java.util.List;
-
 import net.sf.jsqlparser.expression.Expression;
+import net.sf.jsqlparser.expression.JdbcNamedParameter;
+import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 import net.sf.jsqlparser.expression.operators.relational.ItemsList;
 import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.schema.Table;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.StatementVisitor;
+import net.sf.jsqlparser.statement.common.HasColumnExpression;
 import net.sf.jsqlparser.statement.common.HasLimit;
 import net.sf.jsqlparser.statement.common.HasOrderBy;
 import net.sf.jsqlparser.statement.common.HasWhere;
-import net.sf.jsqlparser.statement.select.*;
+import net.sf.jsqlparser.statement.select.Limit;
+import net.sf.jsqlparser.statement.select.OrderByElement;
+import net.sf.jsqlparser.statement.select.Select;
+import net.sf.jsqlparser.statement.select.SelectExpressionItem;
+import net.sf.jsqlparser.util.SelectUtils;
 
-public class Insert implements Statement, net.sf.jsqlparser.statement.common.HasMainTable, HasLimit, HasOrderBy, HasWhere {
+import java.util.List;
+
+public class Insert implements Statement, net.sf.jsqlparser.statement.common.HasMainTable, HasLimit, HasOrderBy, HasWhere, HasColumnExpression {
 
     private Table table;
     private List<Column> columns;
@@ -160,28 +167,28 @@ public class Insert implements Statement, net.sf.jsqlparser.statement.common.Has
         this.modifierIgnore = modifierIgnore;
     }
 
-    public boolean isUseSet() {
-        return useSet;
-    }
-
     public void setUseSet(boolean useSet) {
         this.useSet = useSet;
     }
 
-    public List<Column> getSetColumns() {
-        return setColumns;
+    public boolean isUseSet() {
+        return useSet;
     }
 
     public void setSetColumns(List<Column> setColumns) {
         this.setColumns = setColumns;
     }
 
-    public List<Expression> getSetExpressionList() {
-        return setExpressionList;
+    public List<Column> getSetColumns() {
+        return setColumns;
     }
 
     public void setSetExpressionList(List<Expression> setExpressionList) {
         this.setExpressionList = setExpressionList;
+    }
+
+    public List<Expression> getSetExpressionList() {
+        return setExpressionList;
     }
 
     @Override
@@ -198,7 +205,7 @@ public class Insert implements Statement, net.sf.jsqlparser.statement.common.Has
         sql.append("INTO ");
         sql.append(table).append(" ");
         if (columns != null) {
-            sql.append(PlainSelect.getStringList(columns, true, true)).append(" ");
+            sql.append(SelectUtils.getStringList(columns, true, true)).append(" ");
         }
 
         if (useValues) {
@@ -244,7 +251,7 @@ public class Insert implements Statement, net.sf.jsqlparser.statement.common.Has
         if (isReturningAllColumns()) {
             sql.append(" RETURNING *");
         } else if (getReturningExpressionList() != null) {
-            sql.append(" RETURNING ").append(PlainSelect.
+            sql.append(" RETURNING ").append(SelectUtils.
                     getStringList(getReturningExpressionList(), true, false));
         }
 
@@ -252,13 +259,13 @@ public class Insert implements Statement, net.sf.jsqlparser.statement.common.Has
     }
 
     @Override
-    public Limit getLimit() {
-        return null;
+    public void setLimit(Limit limit) {
+
     }
 
     @Override
-    public void setLimit(Limit limit) {
-
+    public Limit getLimit() {
+        return null;
     }
 
     @Override
@@ -279,5 +286,40 @@ public class Insert implements Statement, net.sf.jsqlparser.statement.common.Has
     @Override
     public void setWhere(Expression where) {
 
+    }
+
+    @Override
+    public boolean addColExpression(Table table, String column, String alias) {
+        columns.add(new Column(table, column));
+        ExpressionList list;
+
+        if (itemsList == null) {
+            list = new ExpressionList();
+            itemsList = list;
+        } else {
+            if (itemsList instanceof ExpressionList) {
+                list = (ExpressionList) itemsList;
+            } else {
+                throw new IllegalArgumentException("this insert instance can't use this method");
+            }
+        }
+        if (list != null) {
+            list.add(new JdbcNamedParameter(alias));
+        }
+        return true;
+    }
+
+    @Override
+    public int removeAllColExpression() {
+        int size = columns.size();
+        columns.clear();
+        ExpressionList list;
+        if (itemsList instanceof ExpressionList) {
+            list = (ExpressionList) itemsList;
+            list.clear();
+        } else {
+            throw new IllegalArgumentException("this insert instance can't use this method");
+        }
+        return size;
     }
 }

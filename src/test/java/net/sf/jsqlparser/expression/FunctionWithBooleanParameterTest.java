@@ -10,14 +10,14 @@
 package net.sf.jsqlparser.expression;
 
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test some cases linked to a boolean (condition) argument as function parameter.
  *
  * @author Denis Fulachier
- *
  */
 public class FunctionWithBooleanParameterTest {
 

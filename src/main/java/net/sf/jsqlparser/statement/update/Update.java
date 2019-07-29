@@ -9,26 +9,23 @@
  */
 package net.sf.jsqlparser.statement.update;
 
-import java.util.Collections;
-import java.util.List;
-
 import net.sf.jsqlparser.expression.Expression;
+import net.sf.jsqlparser.expression.JdbcNamedParameter;
 import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.schema.Table;
+import net.sf.jsqlparser.statement.Statement;
+import net.sf.jsqlparser.statement.StatementVisitor;
+import net.sf.jsqlparser.statement.common.HasColumnExpression;
 import net.sf.jsqlparser.statement.common.HasMainTable;
 import net.sf.jsqlparser.statement.common.HasOrderBy;
 import net.sf.jsqlparser.statement.common.HasWhere;
-import net.sf.jsqlparser.statement.Statement;
-import net.sf.jsqlparser.statement.StatementVisitor;
-import net.sf.jsqlparser.statement.select.FromItem;
-import net.sf.jsqlparser.statement.select.Join;
-import net.sf.jsqlparser.statement.select.PlainSelect;
-import net.sf.jsqlparser.statement.select.Select;
-import net.sf.jsqlparser.statement.select.OrderByElement;
-import net.sf.jsqlparser.statement.select.Limit;
-import net.sf.jsqlparser.statement.select.SelectExpressionItem;
+import net.sf.jsqlparser.statement.select.*;
+import net.sf.jsqlparser.util.SelectUtils;
 
-public class Update implements Statement, HasWhere, HasMainTable, net.sf.jsqlparser.statement.common.HasLimit, HasOrderBy {
+import java.util.Collections;
+import java.util.List;
+
+public class Update implements Statement, HasWhere, HasMainTable, net.sf.jsqlparser.statement.common.HasLimit, HasOrderBy, HasColumnExpression {
 
     private List<Table> tables;
     private Expression where;
@@ -53,12 +50,12 @@ public class Update implements Statement, HasWhere, HasMainTable, net.sf.jsqlpar
         return tables;
     }
 
-    public void setTables(List<Table> list) {
-        tables = list;
-    }
-
     public Expression getWhere() {
         return where;
+    }
+
+    public void setTables(List<Table> list) {
+        tables = list;
     }
 
     public void setWhere(Expression expression) {
@@ -69,12 +66,12 @@ public class Update implements Statement, HasWhere, HasMainTable, net.sf.jsqlpar
         return columns;
     }
 
-    public void setColumns(List<Column> list) {
-        columns = list;
-    }
-
     public List<Expression> getExpressions() {
         return expressions;
+    }
+
+    public void setColumns(List<Column> list) {
+        columns = list;
     }
 
     public void setExpressions(List<Expression> list) {
@@ -121,22 +118,22 @@ public class Update implements Statement, HasWhere, HasMainTable, net.sf.jsqlpar
         this.useSelect = useSelect;
     }
 
-    public List<OrderByElement> getOrderByElements() {
-        return orderByElements;
-    }
-
     public void setOrderByElements(List<OrderByElement> orderByElements) {
         this.orderByElements = orderByElements;
     }
 
     @Override
-    public Limit getLimit() {
-        return limit;
+    public void setLimit(Limit limit) {
+        this.limit = limit;
+    }
+
+    public List<OrderByElement> getOrderByElements() {
+        return orderByElements;
     }
 
     @Override
-    public void setLimit(Limit limit) {
-        this.limit = limit;
+    public Limit getLimit() {
+        return limit;
     }
 
     public boolean isReturningAllColumns() {
@@ -158,7 +155,7 @@ public class Update implements Statement, HasWhere, HasMainTable, net.sf.jsqlpar
     @Override
     public String toString() {
         StringBuilder b = new StringBuilder("UPDATE ");
-        b.append(PlainSelect.getStringList(getTables(), true, false)).append(" SET ");
+        b.append(SelectUtils.getStringList(getTables(), true, false)).append(" SET ");
 
         if (!useSelect) {
             for (int i = 0; i < getColumns().size(); i++) {
@@ -212,7 +209,7 @@ public class Update implements Statement, HasWhere, HasMainTable, net.sf.jsqlpar
         if (isReturningAllColumns()) {
             b.append(" RETURNING *");
         } else if (getReturningExpressionList() != null) {
-            b.append(" RETURNING ").append(PlainSelect.
+            b.append(" RETURNING ").append(SelectUtils.
                     getStringList(getReturningExpressionList(), true, false));
         }
 
@@ -230,5 +227,20 @@ public class Update implements Statement, HasWhere, HasMainTable, net.sf.jsqlpar
     @Override
     public void setTable(Table name) {
         setTables(Collections.singletonList(name));
+    }
+
+    @Override
+    public boolean addColExpression(Table table, String column, String alias) {
+        columns.add(new Column(table, column));
+        expressions.add(new JdbcNamedParameter(alias));
+        return true;
+    }
+
+    @Override
+    public int removeAllColExpression() {
+        int size = columns.size();
+        columns.clear();
+        expressions.clear();
+        return size;
     }
 }

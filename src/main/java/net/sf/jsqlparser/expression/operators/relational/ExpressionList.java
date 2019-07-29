@@ -9,11 +9,11 @@
  */
 package net.sf.jsqlparser.expression.operators.relational;
 
+import net.sf.jsqlparser.expression.Expression;
+import net.sf.jsqlparser.util.SelectUtils;
+
 import java.util.Arrays;
 import java.util.List;
-
-import net.sf.jsqlparser.expression.Expression;
-import net.sf.jsqlparser.statement.select.PlainSelect;
 
 /**
  * A list of expressions, as in SELECT A FROM TAB WHERE B IN (expr1,expr2,expr3)
@@ -25,11 +25,23 @@ public class ExpressionList implements ItemsList {
     public ExpressionList() {
     }
 
+    public int size() {
+        return getExpressions().size();
+    }
+
+    public boolean add(Expression expression) {
+        return getExpressions().add(expression);
+    }
+
+    public void clear() {
+        expressions.clear();
+    }
+
     public ExpressionList(List<Expression> expressions) {
         this.expressions = expressions;
     }
-    
-    public ExpressionList(Expression ... expressions) {
+
+    public ExpressionList(Expression... expressions) {
         this.expressions = Arrays.asList(expressions);
     }
 
@@ -48,6 +60,6 @@ public class ExpressionList implements ItemsList {
 
     @Override
     public String toString() {
-        return PlainSelect.getStringList(expressions, true, true);
+        return SelectUtils.getStringList(expressions, true, true);
     }
 }

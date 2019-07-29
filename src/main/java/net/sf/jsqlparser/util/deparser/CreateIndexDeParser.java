@@ -9,10 +9,10 @@
  */
 package net.sf.jsqlparser.util.deparser;
 
-import java.util.Iterator;
-
 import net.sf.jsqlparser.statement.create.index.CreateIndex;
 import net.sf.jsqlparser.statement.create.table.Index;
+
+import java.util.Iterator;
 
 public class CreateIndexDeParser {
 
@@ -38,14 +38,14 @@ public class CreateIndexDeParser {
         buffer.append(createIndex.getTable().getFullyQualifiedName());
 
         String using = index.getUsing();
-        if (using != null){
+        if (using != null) {
             buffer.append(" USING ");
             buffer.append(using);
         }
 
         if (index.getColumnsNames() != null) {
             buffer.append(" (");
-            for (Iterator iter = index.getColumnsNames().iterator(); iter.hasNext();) {
+            for (Iterator iter = index.getColumnsNames().iterator(); iter.hasNext(); ) {
                 String columnName = (String) iter.next();
                 buffer.append(columnName);
 
